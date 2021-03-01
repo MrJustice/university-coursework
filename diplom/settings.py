@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'diplom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'nvzzfmvu',
+        'USER': 'nvzzfmvu',
+        'PASSWORD': '3wucfjFI5Pv8UG94zdWCkBZ08jRihbRw',
+        'HOST': 'balarama.db.elephantsql.com',
+        'POST': '5432',
     }
 }
 
@@ -119,6 +123,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+SHORT_DATE_FORMAT = 'd.m.Y'
+DATE_FORMAT = 'd.m.Y'
+
+TIME_FORMAT = 'H:i:s'
+
+SHORT_DATETIME_FORMAT = 'd.m.Y H:i'
+DATETIME_FORMAT = 'd.m.Y H:i:s'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
