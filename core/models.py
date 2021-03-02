@@ -21,8 +21,10 @@ class FoodEstablishment(models.Model):
     Model for food establishments
     """
     title = models.CharField('Название', max_length=128, unique=True)
-    number_of_tables = models.PositiveSmallIntegerField('Количество столов')
-    logo = models.ImageField('Логотип')
+    phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
+    email = models.EmailField('Адрес электронной почты', max_length=255, **BLANK_NULL)
+    number_of_tables = models.PositiveSmallIntegerField('Количество столов', **BLANK_NULL)
+    logo = models.ImageField('Логотип', **BLANK_NULL)
     guests = models.ManyToManyField(Guest, through='GuestFoodEstablishmentM2M', related_name='food_establishments')
 
     def __str__(self):
@@ -35,8 +37,8 @@ class GuestFoodEstablishmentM2M(models.Model):
     """
     guest = models.ForeignKey(Guest, on_delete=models.CASCADE)
     food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE)
-    member_since = models.DateField('Первое посещение')
-    number_of_visits = models.PositiveSmallIntegerField('Количество посещений')
+    member_since = models.DateField('Первое посещение', **BLANK_NULL)
+    number_of_visits = models.PositiveSmallIntegerField('Количество посещений', **BLANK_NULL)
 
     class Meta:
         unique_together = ['guest', 'food_establishment']
@@ -49,24 +51,34 @@ class Reservation(models.Model):
     """
     Model for reservations
     """
-    guest = models.ForeignKey(Guest, on_delete=models.CASCADE, related_name='reservations')
-    food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, related_name='reservations')
+    guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
+    number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
     start_date = models.DateTimeField('Дата и время начала брони')
     end_date = models.DateTimeField('Дата и время окончания брони')
+
+    def __str__(self):
+        return str(self.guest_food_establishment) + ': ' + self.start_date
 
 
 class Table(models.Model):
     """
     Model for tables
     """
+    FREE = 'FR'
+    BOOKED = 'BKD'
+    STATUS_CHOICES = [
+        (FREE, 'Free'),
+        (BOOKED, 'Booked')
+    ]
     number = models.PositiveSmallIntegerField('Номер стола')
-    number_of_seats = models.PositiveSmallIntegerField('Количество мест за столом')
-    smoke = models.BooleanField('Стол для курящих')
+    number_of_seats = models.PositiveSmallIntegerField('Количество мест за столом', **BLANK_NULL)
+    smoke = models.BooleanField('Стол для курящих', default=False)
+    status = models.CharField(max_length=3, choices=STATUS_CHOICES, default=FREE)
 
 
 class ReservedTable(models.Model):
     """
-    Model for tables on each reseration
+    Model for tables on each reservation
     """
     table = models.OneToOneField(Table, on_delete=models.CASCADE)
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
