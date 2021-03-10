@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
 BLANK_NULL = {'blank': True, 'null': True}
@@ -20,9 +21,11 @@ class FoodEstablishment(models.Model):
     """
     Model for food establishments
     """
+    owner = models.OneToOneField(User, related_name='food_establishment', on_delete=models.PROTECT)
     title = models.CharField('Название', max_length=128, unique=True)
     phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
-    email = models.EmailField('Адрес электронной почты', max_length=255, **BLANK_NULL)
+    location = models.CharField(max_length=128, blank=True)
+    email = models.EmailField('Адрес электронной почты', max_length=128, **BLANK_NULL)
     number_of_tables = models.PositiveSmallIntegerField('Количество столов', **BLANK_NULL)
     logo = models.ImageField('Логотип', **BLANK_NULL)
     guests = models.ManyToManyField(Guest, through='GuestFoodEstablishmentM2M', related_name='food_establishments')
