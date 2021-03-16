@@ -73,6 +73,8 @@ class Table(models.Model):
         (FREE, 'Free'),
         (BOOKED, 'Booked')
     ]
+
+    food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
     number = models.PositiveSmallIntegerField('Номер стола')
     number_of_seats = models.PositiveSmallIntegerField('Количество мест за столом', **BLANK_NULL)
     smoke = models.BooleanField('Стол для курящих', default=False)

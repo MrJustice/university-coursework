@@ -6,5 +6,5 @@ from . import views
 router = DefaultRouter()
 
 urlpatterns = [
-    url('', views.api_overview, name='api-overview')
+    url('', views.api_overview, name='api-overview'),
 ]
