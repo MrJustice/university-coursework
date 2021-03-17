@@ -1,60 +1,57 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <nav class="navbar is-transparent navbar-padding-horizontal" role="navigation">
+      <div class="container is-widescreen">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="#">
+            <img :src="require('@/assets/logo.png')" alt="Logo"/>
+          </a>
+          <div
+            class="navbar-burger"
+            data-target="navbarExampleTransparentExample"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item has-text-black" href="#"> Home </a>
+            <a class="navbar-item has-text-black" href="#"> Something </a>
+            <a class="navbar-item has-text-black" href="#"> About </a>
+          </div>
+        </div>
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    </nav>
     <v-main>
-      <HelloWorld/>
+      <Home />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Home from "./components/Home";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    HelloWorld,
+    Home,
   },
 
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
 };
 </script>
+
+<style lang="scss">
+@import "../node_modules/bulma";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+nav.navbar {
+  font-family: 'Montserrat';
+  font-size: 28px;
+  height: 5rem !important;
+}
+</style>
