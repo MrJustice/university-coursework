@@ -1,10 +1,11 @@
+from rest_framework import routers
 from django.conf.urls import url, include
-from rest_framework.routers import DefaultRouter
 
 from . import views
 
-router = DefaultRouter()
+router = routers.SimpleRouter()
+router.register(r'food-establishment', views.FoodEstablishmentViewSet)
 
 urlpatterns = [
-    url('', views.api_overview, name='api-overview'),
+    url('', include(router.urls)),
 ]

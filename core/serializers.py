@@ -2,7 +2,7 @@ from .models import *
 from rest_framework import serializers
 
 
-class UserSerializer(serializers.ModelSerializer):
+class BasicUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         depth = 1
@@ -16,7 +16,7 @@ class GuestSerializer(serializers.ModelSerializer):
 
 
 class FoodEstablishmentSerializer(serializers.ModelSerializer):
-    owner = UserSerializer()
+    owner = BasicUserSerializer()
     guests = GuestSerializer(many=True)
 
     class Meta:
