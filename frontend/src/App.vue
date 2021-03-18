@@ -1,15 +1,10 @@
 <template>
   <v-app>
     <nav class="navbar is-transparent navbar-padding-horizontal" role="navigation">
-      <div class="container is-widescreen">
+      <div class="container is-max-desktop">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">
-            <img :src="require('@/assets/logo.png')" alt="Logo"/>
-          </a>
-          <div
-            class="navbar-burger"
-            data-target="navbarExampleTransparentExample"
-          >
+          <a class="navbar-item" href="#"></a>
+          <div class="navbar-burger" data-target="navbarExampleTransparentExample">
             <span></span>
             <span></span>
             <span></span>
@@ -18,28 +13,28 @@
 
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-end">
-            <a class="navbar-item has-text-black" href="#"> Home </a>
-            <a class="navbar-item has-text-black" href="#"> Something </a>
-            <a class="navbar-item has-text-black" href="#"> About </a>
+            <a class="navbar-item has-text-black" href="#"> Главная </a>
+            <a class="navbar-item has-text-black" href="#"> Что-то там </a>
+            <a class="navbar-item has-text-black" href="#"> О нас </a>
           </div>
         </div>
       </div>
     </nav>
     <v-main>
-      <Home />
+      <v-content>
+        <v-container fluid>
+          <transition name="slide-fade" mode="out-in">
+            <router-view></router-view>
+          </transition>
+        </v-container>
+      </v-content>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Home from "./components/Home";
-
 export default {
-  name: "App",
-
-  components: {
-    Home,
-  },
+  name: "app",
 
   data: () => ({}),
 };
@@ -52,6 +47,13 @@ export default {
 nav.navbar {
   font-family: 'Montserrat';
   font-size: 28px;
-  height: 5rem !important;
+  height: 6rem;
+}
+
+.navbar-brand a {
+  background: url("assets/logo.png") center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 125px;
 }
 </style>

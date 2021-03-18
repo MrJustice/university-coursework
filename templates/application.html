@@ -6,14 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Django Vue Integration</title>
+    <title>TR</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <style>
+      #initial_loader{position: absolute;left:0;top:0;width:100%;height:100%;background-color: #ffffff;z-index:9999;text-align: center;}
+    </style>
+    <script>function fade(t){var e=1,n=setInterval(function(){e<=.1&&(clearInterval(n),t.style.display="none"),t.style.opacity=e,t.style.filter="alpha(opacity="+100*e+")",e-=.1*e},20)}window.onload=function(){setTimeout(function(){fade(document.getElementById("initial_loader"))},500)};</script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <div id="initial_loader">
+      Loading...
+    </div>
     <div id="app">
       <app></app>
     </div>
