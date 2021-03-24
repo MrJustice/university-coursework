@@ -13,9 +13,15 @@
 
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-end">
-            <a class="navbar-item has-text-black" href="#"> Главная </a>
-            <a class="navbar-item has-text-black" href="#"> Что-то там </a>
-            <a class="navbar-item has-text-black" href="#"> О нас </a>
+            <router-link :to="'/'">
+              <a class="navbar-item has-text-black" href="#"> Главная </a>
+            </router-link>
+            <router-link :to="'Home'">
+              <a class="navbar-item has-text-black" href="#"> Что-то там </a>
+            </router-link>
+            <router-link :to="'About'">
+              <a class="navbar-item has-text-black" href="#"> О нас </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -43,6 +49,10 @@ export default {
 <style lang="scss">
 @import "../node_modules/bulma";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  font-family: 'Montserrat';
+}
 
 nav.navbar {
   font-family: 'Montserrat';

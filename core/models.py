@@ -21,8 +21,26 @@ class FoodEstablishment(models.Model):
     """
     Model for food establishments
     """
-    owner = models.OneToOneField(User, related_name='food_establishment', on_delete=models.PROTECT)
+    BELARUS = 'BY'
+    RUSSIA = 'RU'
+    FRANCE = 'FR'
+    ITALY = 'I'
+    CHINA = 'CN'
+    KOREA = 'KR'
+
+    COUSINE_CHOICES = [
+        (BELARUS, 'Национальная'),
+        (RUSSIA, 'Русская'),
+        (FRANCE, 'Французская'),
+        (ITALY, 'Итальянская'),
+        (CHINA, 'Китайская'),
+        (KOREA, 'Корейская')
+    ]
+
+    owner = models.ForeignKey(User, related_name='food_establishments', on_delete=models.PROTECT)
     title = models.CharField('Название', max_length=128, unique=True)
+    cousine = models.CharField(max_length=2, choices=COUSINE_CHOICES, default=COUSINE_CHOICES[0][0])
+    rating = models.PositiveSmallIntegerField('Количество посещений', **BLANK_NULL, default=0)
     phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
     location = models.CharField(max_length=128, blank=True)
     email = models.EmailField('Адрес электронной почты', max_length=128, **BLANK_NULL)
