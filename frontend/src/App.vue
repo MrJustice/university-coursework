@@ -3,7 +3,9 @@
     <nav class="navbar is-transparent navbar-padding-horizontal" role="navigation">
       <div class="container is-max-desktop">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#"></a>
+          <router-link :to="'/'">
+            <a class="navbar-item" href="#"></a>
+          </router-link>
           <div class="navbar-burger" data-target="navbarExampleTransparentExample">
             <span></span>
             <span></span>
@@ -48,14 +50,23 @@ export default {
 
 <style lang="scss">
 @import "../node_modules/bulma";
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-body {
+@font-face {
   font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Regular.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  font-family: 'Montserrat', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 nav.navbar {
-  font-family: 'Montserrat';
   font-size: 28px;
   height: 6rem;
 }

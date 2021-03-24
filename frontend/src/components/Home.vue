@@ -16,6 +16,8 @@
       <button class="find button is-primary">Поиск</button>
     </v-container>
     <v-container>
+      <p class="is-size-4 pl-6 mb-1">Лучшие заведения</p>
+      <v-divider class="mt-0"></v-divider>
       <ul>
         <li v-for="restaurant in restaurants" :key="restaurant.id">
           <v-card>
@@ -68,10 +70,6 @@ li {
   list-style: none;
 }
 
-button {
-  padding: 0;
-}
-
 div.est-layer {
   display: flex;
   width: 710px;
@@ -86,14 +84,6 @@ div.est-person,
 div.est-name {
   width: 15%;
   border-right: 2px solid #000000;
-}
-
-div.est-name {
-
-}
-
-div.est-person {
-
 }
 
 div.est-name {
