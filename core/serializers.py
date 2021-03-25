@@ -24,6 +24,15 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
         fields = ['owner', 'title', 'phone', 'location', 'email', 'number_of_tables', 'guests']
 
 
+class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
+    type = serializers.CharField(source='get_type_display', read_only=True)
+    cousine = serializers.CharField(source='get_cousine_display', read_only=True)
+
+    class Meta:
+        model = FoodEstablishment
+        fields = ['type', 'title', 'cousine', 'average_check', 'location', 'rating', 'phone']
+
+
 class GuestFoodEstablishmentM2MSerializer(serializers.ModelSerializer):
     guest = GuestSerializer()
     food_establishment = FoodEstablishment()

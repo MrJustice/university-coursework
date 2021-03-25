@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-img
-      :src="require('../assets/home_image.png')"
+      height="308"
       contain
-      height="300"
+      :src="require('../assets/home_image.png')"
     />
     <v-container class="search_layout">
       <div class="columns est-layer">
@@ -13,25 +13,53 @@
 	      <div class="est-name"></div>
         <div class="est-location"></div>
       </div>
-      <button class="find button is-primary">Поиск</button>
+      <button class="find button is-primary has-text-weight-semibold">Поиск</button>
     </v-container>
     <v-container>
       <p class="is-size-4 pl-6 mb-1">Лучшие заведения</p>
       <v-divider class="mt-0"></v-divider>
-      <ul>
-        <li v-for="restaurant in restaurants" :key="restaurant.id">
+      <div class="columns">
+        <div v-for="restaurant in restaurants" :key="restaurant.id" class="column">
           <v-card>
-            <router-link :to="{name: 'restaurant-page', params: {id: restaurant.id}}">
-              <v-card-title class="card-title">
-                {{ restaurant.title }}
+              <v-img
+                height="105"
+                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              ></v-img>
+              <v-card-title class="card-title s-flex is-justify-content-space-between">
+                {{ restaurant.type + ' "' + restaurant.title + '"'}}
+                <div>
+                  <v-rating
+                    v-model="rating"
+                    dense
+                    large
+                    half-increments
+                    fullIcon=star
+                    halfIcon=star_half
+                    emptyIcon=star_outline
+                    color="yellow darken-3"
+                    background-color="grey darken-1"
+                  ></v-rating>
+                </div>
               </v-card-title>
-              <v-card-text class="card-text">
-                <p>{{ restaurant.cousine }}</p>
+              <v-card-text class="card-text is-flex is-justify-content-space-between is-size-6">
+                 <div class="has-text-left">
+                  {{ restaurant.cousine }} кухня
+                  <br>Средний чек:&nbsp;{{ restaurant.average_check }} руб.
+                 </div>
+                 <div class="has-text-right">
+                   {{ restaurant.phone }}
+                   <br>{{ restaurant.location }}
+                 </div>
               </v-card-text>
-            </router-link>
+              <v-card-actions>
+                <router-link :to="{name: 'restaurant-page', params: {id: restaurant.id}}">
+                  <v-btn color="yellow darken-3" text>Подробнее</v-btn>
+                </router-link>
+                <v-btn color="yellow darken-3" text>Забронировать</v-btn>
+              </v-card-actions>
           </v-card>
-        </li>
-      </ul>
+        </div>
+      </div>
     </v-container>
   </v-container>
 </template>
@@ -43,6 +71,7 @@
       restaurants: {},
       menu: false,
       date: new Date().toISOString().slice(0, 10),
+      rating: 3.5,
     }),
     computed: {
       computedDateFormatted() {
@@ -63,13 +92,6 @@
 </script>
 
 <style scoped>
-ul,
-li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 div.est-layer {
   display: flex;
   width: 710px;
@@ -98,29 +120,10 @@ div.est-location {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2% auto 0;
+  margin: 2% auto;
 }
 
 .find {
   margin: 0.5% auto 0;
-}
-
-ul {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin-top: 1%;
-}
-
-li {
-  display: inline-block;
-  width: 31.5%;
-  margin-right: 2%;
-  margin-bottom: 3%;
-  z-index: 2;
-}
-
-li:nth-child(3n) {
-  margin-right: 0;
 }
 </style>

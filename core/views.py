@@ -48,5 +48,5 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
     @api_view(['GET'])
     def get_four_high_rated(request):
         queryset = models.FoodEstablishment.objects.order_by('rating')[:4]
-        serializer = serializers.FoodEstablishmentSerializer(queryset, many=True)
+        serializer = serializers.FoodEstablishmentHomeScreenSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -3,17 +3,20 @@
     <nav class="navbar is-transparent navbar-padding-horizontal" role="navigation">
       <div class="container is-max-desktop">
         <div class="navbar-brand">
-          <router-link :to="'/'">
-            <a class="navbar-item" href="#"></a>
-          </router-link>
-          <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+          <router-link class="navbar-item" :to="'/'"></router-link>
+          <!-- <div class="navbar-burger" data-target="navbarExampleTransparentExample">
             <span></span>
             <span></span>
             <span></span>
-          </div>
+          </div> -->
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
 
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-end">
             <router-link :to="'/'">
               <a class="navbar-item has-text-black" href="#"> Главная </a>
@@ -68,10 +71,10 @@ export default {
 
 nav.navbar {
   font-size: 28px;
-  height: 6rem;
+  height: 5.5rem;
 }
 
-.navbar-brand a {
+.navbar-brand a:first-of-type {
   background: url("assets/logo.png") center;
   background-size: contain;
   background-repeat: no-repeat;
