@@ -4,11 +4,6 @@
       <div class="container is-max-desktop">
         <div class="navbar-brand">
           <router-link class="navbar-item" :to="'/'"></router-link>
-          <!-- <div class="navbar-burger" data-target="navbarExampleTransparentExample">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div> -->
           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -19,10 +14,7 @@
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-end">
             <router-link :to="'/'">
-              <a class="navbar-item has-text-black" href="#"> Главная </a>
-            </router-link>
-            <router-link :to="'Home'">
-              <a class="navbar-item has-text-black" href="#"> Что-то там </a>
+              <a class="navbar-item has-text-black " href="#"> Главная </a>
             </router-link>
             <router-link :to="'About'">
               <a class="navbar-item has-text-black" href="#"> О нас </a>
@@ -32,13 +24,11 @@
       </div>
     </nav>
     <v-main>
-      <v-content>
-        <v-container fluid>
-          <transition name="slide-fade" mode="out-in">
-            <router-view></router-view>
-          </transition>
-        </v-container>
-      </v-content>
+      <v-container fluid>
+        <transition name="slide-fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -70,7 +60,7 @@ export default {
 }
 
 nav.navbar {
-  font-size: 28px;
+  font-size: 30px;
   height: 5.5rem;
 }
 

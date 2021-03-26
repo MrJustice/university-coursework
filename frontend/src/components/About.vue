@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <v-img
-      :src="require('../assets/home_image.png')"
+      height="308"
       contain
-      height="300"
+      :src="require('../assets/home_image.png')"
     />
-    <p class="has-text-centered font-weight-medium is-size-3-desktop">
+    <p class="has-text-centered font-weight-medium is-size-3-desktop mt-6">
       We will never be slaves, but we will be conquerors!
     </p>
   </v-container>

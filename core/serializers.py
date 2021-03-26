@@ -30,7 +30,7 @@ class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodEstablishment
-        fields = ['type', 'title', 'cousine', 'average_check', 'location', 'rating', 'phone']
+        fields = ['id', 'type', 'title', 'cousine', 'average_check', 'location', 'rating', 'phone']
 
 
 class GuestFoodEstablishmentM2MSerializer(serializers.ModelSerializer):
