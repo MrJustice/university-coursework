@@ -1,36 +1,39 @@
 <template>
-  
+  <v-container>
+    <v-container class="search_layout">
+      <search-bar></search-bar>
+    </v-container>
+    <v-divider class="mt-0"></v-divider>
+  </v-container>
 </template>
 
 <script>
-import ListMixin from './mixins/ListMixin'
-
-import RestaurantReserveTable from './RestaurantReserveTable'
+import SearchBar from './SearchBar.vue';
+import ListMixin from "./mixins/ListMixin";
+import RestaurantReserveTable from "./RestaurantReserveTable";
 
 export default {
-  name: 'RestaurantList',
+  name: "RestaurantList",
   components: {
-    RestaurantReserveTable
+    SearchBar,
+    RestaurantReserveTable,
   },
   mixins: [ListMixin],
   data: () => ({
-    base_url: 'api/food-establishment/',
+    base_url: "api/food-establishment/",
   }),
-  computed: {
-
-  },
-  methods: {
-
-  },
-  watch: {
-
-  },
-  mounted() {
-
-  },
-}
+  computed: {},
+  methods: {},
+  watch: {},
+  mounted() {},
+};
 </script>
 
 <style scoped>
-
+.search_layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2% auto;
+}
 </style>
