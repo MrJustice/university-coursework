@@ -17,11 +17,11 @@ class GuestSerializer(serializers.ModelSerializer):
 
 class FoodEstablishmentSerializer(serializers.ModelSerializer):
     owner = BasicUserSerializer()
-    guests = GuestSerializer(many=True)
 
     class Meta:
         model = FoodEstablishment
-        fields = ['owner', 'title', 'phone', 'location', 'email', 'number_of_tables', 'guests']
+        fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
+                  'email', 'number_of_tables']
 
 
 class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):

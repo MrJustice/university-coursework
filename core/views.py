@@ -11,12 +11,6 @@ from rest_framework.authentication import BasicAuthentication
 
 from . import models, serializers
 
-@api_view(['GET'])
-def api_overview(request):
-    queryset = models.User.objects.all()
-    serializer = serializers.BasicUserSerializer(queryset, many=True)
-    return Response(serializer.data)
-
 
 class FoodEstablishmentViewSet(viewsets.ViewSet):
     queryset = models.FoodEstablishment.objects.all()
@@ -32,9 +26,8 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         return Response(data, content_type='application/json')
 
     def retrieve(self, request, pk=None):
-        queryset = models.FoodEstablishment.objects.all()
-        food_establishment = get_object_or_404(queryset, pk=pk)
-        serializer = serializers.FoodEstablishmentSerializer(food_establishment)
+        queryset = models.FoodEstablishment.objects.get(pk=pk)
+        serializer = serializers.FoodEstablishmentSerializer(queryset)
         return Response(serializer.data)
 
     def update(self, request, pk=None):

@@ -31,30 +31,33 @@
     <div class="est-time">
       <v-select
         class="mt-0 pt-1 mx-1"
-        v-model="this.search_by_time"
-        :items="this.timeChoices"
+        v-model="search_by_time"
+        :items="timeChoices"
         prepend-inner-icon="query_builder"
         autocomplete
+        @change="sendData"
       ></v-select>
     </div>
     <div class="est-person">
       <v-select
         class="mt-0 pt-1 mx-1"
-        v-model="this.search_by_number_of_persons"
-        :items="this.personChoices"
+        v-model="search_by_number_of_persons"
+        :items="personChoices"
         prepend-inner-icon="people"
         autocomplete
+        @change="sendData"
       ></v-select>
     </div>
     <div class="est-name">
       <v-text-field
         class="mt-0 pt-1 mx-1"
-        v-model="this.search_by_name"
+        v-model="search_by_name"
         label="Поиск по названию"
         prepend-inner-icon="search"
         single-line
         hide-details
         autocomplete
+        @change="sendData"
       ></v-text-field>
     </div>
   </div>
@@ -63,7 +66,8 @@
 <script>
 export default {
   name: 'SearchBar',
-  data: () => ({
+  data() {
+    return {
       menu: false,
       search_by_date: new Date().toISOString().slice(0, 10),
       search_by_time: '15:00',
@@ -75,7 +79,8 @@ export default {
                     '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30',
                     '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
       personChoices: [1,2,3,4,5,6],
-  }),
+    }
+  },
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.search_by_date)
@@ -87,8 +92,11 @@ export default {
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
     },
+    sendData() {
+      this.$emit('sendAllData', [this.search_by_date, this.search_by_time, this.search_by_number_of_persons, this.search_by_name])
+    }
   },
-}
+};
 </script>
 
 <style scoped>

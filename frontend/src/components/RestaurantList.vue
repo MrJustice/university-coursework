@@ -19,9 +19,11 @@ export default {
     RestaurantReserveTable,
   },
   mixins: [ListMixin],
-  data: () => ({
-    base_url: "api/food-establishment/",
-  }),
+  data() {
+    return {
+      base_url: "api/food-establishment/",
+    }
+  },
   computed: {},
   methods: {},
   watch: {},
