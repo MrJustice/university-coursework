@@ -1,4 +1,5 @@
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import './assets/reset.css';
 
 import Vue from 'vue'
 import App from './App.vue'

@@ -48,11 +48,6 @@ export default {
   src: url('assets/fonts/Montserrat-Regular.ttf');
 }
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 #app {
   font-family: 'Montserrat', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

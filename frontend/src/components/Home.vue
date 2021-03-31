@@ -5,7 +5,7 @@
       <search-bar @sendAllData="getDataFromSearchBar"></search-bar>
       <router-link :to="{name: 'RestaurantList', params: {date: searchData[0], time: searchData[1], 
                                                           person: searchData[2], name: searchData[3]}}">
-        <button class="find button is-primary has-text-weight-semibold">Поиск</button>
+        <button class="find button has-text-weight-semibold">Поиск</button>
       </router-link>
     </v-container>
     <v-container>

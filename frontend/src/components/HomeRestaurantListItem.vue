@@ -17,7 +17,7 @@
             fullIcon="star"
             halfIcon="star_half"
             emptyIcon="star_outline"
-            color="yellow darken-3"
+            color="yellow darken-4"
             background-color="grey darken-1"
           ></v-rating>
         </div>
@@ -31,11 +31,11 @@
           <br />{{ restaurant_data.location }}
         </div>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="is-flex is-justify-content-end">
         <router-link :to="{ name: 'RestaurantPage', params: { id: restaurant_data.id } }">
-          <v-btn color="yellow darken-3" text>Подробнее</v-btn>
+          <v-btn color="yellow darken-4" text>Подробнее</v-btn>
         </router-link>
-        <v-btn color="yellow darken-3" text>Забронировать</v-btn>
+        <v-btn color="yellow darken-4" text>Забронировать</v-btn>
       </v-card-actions>
     </v-card>
   </div>
