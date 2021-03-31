@@ -12,12 +12,12 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-end">
+          <div class="navbar-end pt-1">
             <router-link :to="'/'">
-              <a class="navbar-item has-text-black " href="#"> Главная </a>
+              <a class="navbar-item has-text-black" href="#">Главная</a>
             </router-link>
             <router-link :to="'About'">
-              <a class="navbar-item has-text-black" href="#"> О нас </a>
+              <a class="navbar-item has-text-black" href="#">О нас</a>
             </router-link>
           </div>
         </div>

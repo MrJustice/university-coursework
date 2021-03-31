@@ -17,11 +17,16 @@ class GuestSerializer(serializers.ModelSerializer):
 
 class FoodEstablishmentSerializer(serializers.ModelSerializer):
     owner = BasicUserSerializer()
+    type = serializers.CharField(source='get_type_display', read_only=True)
+    cousine = serializers.CharField(source='get_cousine_display', read_only=True)
 
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
-                  'email', 'number_of_tables']
+                  'email', 'number_of_tables', 'type', 'working_hours']
+
+    def get_working_hours(self, obj):
+        return self.get_working_hours
 
 
 class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):

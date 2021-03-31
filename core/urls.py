@@ -10,5 +10,5 @@ urlpatterns = [
     url('', include(router.urls)),
 
     #Food establisments
-    url('get-four-high-rated/', views.FoodEstablishmentViewSet.get_four_high_rated, name='get_four_high_rated'),
+    url('get-high-rated/', views.FoodEstablishmentViewSet.get_high_rated, name='get_high_rated'),
 ]

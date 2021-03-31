@@ -49,21 +49,27 @@ class FoodEstablishment(models.Model):
 
     owner = models.ForeignKey(User, related_name='food_establishments', on_delete=models.PROTECT)
     title = models.CharField('Название', max_length=128, unique=True)
-    description = models.CharField('Описание', max_length=500, **BLANK_NULL)
+    description = models.CharField('Описание', max_length=1000, **BLANK_NULL)
     type = models.CharField('Тип заведения', max_length=1, choices=TYPE_CHOICES, default=TYPE_CHOICES[1][0])
     cousine = models.CharField('Кухня', max_length=2, choices=COUSINE_CHOICES, default=COUSINE_CHOICES[0][0])
     average_check = models.PositiveSmallIntegerField('Средний чек', **BLANK_NULL)
     rating = models.DecimalField('Рейтинг', max_digits=2, decimal_places=1, default=0.0, **BLANK_NULL)
     phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
     location = models.CharField(max_length=128, blank=True)
+    opening_time = models.CharField(max_length=5, blank=True)
+    closing_time = models.CharField(max_length=5, blank=True)
     email = models.EmailField('Адрес электронной почты', max_length=128, **BLANK_NULL)
     number_of_tables = models.PositiveSmallIntegerField('Количество столов', **BLANK_NULL)
-    logo = models.ImageField('Логотип', **BLANK_NULL)
+    big_image = models.ImageField('Логотип', **BLANK_NULL)
     preview_image = models.ImageField('Превью', **BLANK_NULL)
     guests = models.ManyToManyField(Guest, through='GuestFoodEstablishmentM2M', related_name='food_establishments')
 
     def __str__(self):
         return self.type + ' "' + self.title + '"'
+
+    @property
+    def working_hours(self):
+        return self.opening_time + ' - ' + self.closing_time
 
 
 class Feedback(models.Model):

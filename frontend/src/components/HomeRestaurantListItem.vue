@@ -5,13 +5,13 @@
         height="105"
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
       ></v-img>
-      <v-card-title class="card-title s-flex is-justify-content-space-between">
+      <v-card-title class="s-flex is-justify-content-space-between">
         {{ restaurant_data.type + ' "' + restaurant_data.title + '"' }}
         <div>
           <v-rating
             v-model="restaurantRating"
             dense
-            large
+            medium
             readonly
             half-increments
             fullIcon="star"
