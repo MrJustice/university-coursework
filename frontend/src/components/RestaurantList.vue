@@ -30,6 +30,18 @@
             ></v-checkbox>
           </v-list-item>
         </v-list>
+        <span class="is-size-5 has-text-weight-semibold mt-2">Средний чек</span>
+        <v-list>
+          <v-list-item v-for="item in restaurantPriceItems" :key="item.value">
+            <v-checkbox
+              v-model="restaurantPriceList"
+              :value="item.value" 
+              :label="item.label"
+              dense
+              hide-details
+            ></v-checkbox>
+          </v-list-item>
+        </v-list>
       </div>
       <div class="column is-7">
         <restaurant-list-item
@@ -50,12 +62,12 @@
 <script>
 import SearchBar from './SearchBar.vue';
 import RestaurantListItem from './RestaurantListItem.vue'
-import RestaurantReserveTable from "./RestaurantReserveTable";
+import RestaurantReserve from "./RestaurantReserve.vue";
 export default {
   name: "RestaurantList",
   components: {
     SearchBar,
-    RestaurantReserveTable,
+    RestaurantReserve,
     RestaurantListItem
   },
   data() {
@@ -103,9 +115,28 @@ export default {
           label: 'Корейская'
         }
       ],
+      restaurantPriceItems: 
+      [
+        {
+          value: '0,30',
+          label: 'до 30 руб.'
+        },
+        {
+          value: '31,60',
+          label: '31-60 руб.'
+        },
+        {
+          value: '61,100',
+          label: '61-100 руб.'
+        },
+        {
+          value: '100,10000',
+          label: '101+ руб.'
+        }
+      ],
       restaurantTypeList: [],
       restaurantCousineList: [],
-      restaurantPriceList: ['10-30 руб.','31-60 руб.','60-100 руб.','100+ руб.']
+      restaurantPriceList: [],
     }
   },
   computed: {},
@@ -113,7 +144,8 @@ export default {
     fetchItems() {
       let params = {
         'filter_by_type': this.restaurantTypeList,
-        'filter_by_cousine': this.restaurantCousineList
+        'filter_by_cousine': this.restaurantCousineList,
+        'filter_by_price': this.restaurantPriceList
       }
       this.axios
         .get('api/food-establishment/', { params: params })
@@ -129,6 +161,12 @@ export default {
       }
     },
     restaurantCousineList:{
+      deep: true,
+      handler() {
+        this.fetchItems();
+      }
+    },
+    restaurantPriceList:{
       deep: true,
       handler() {
         this.fetchItems();
