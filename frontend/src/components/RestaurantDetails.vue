@@ -17,7 +17,7 @@
           <p class="has-text-weight-semibold is-align-self-center">Телефон: <span>{{ restaurantData.phone }}</span></p>
           <p class="has-text-weight-semibold is-align-self-center">Время работы: <span>{{ restaurantData.working_hours }}</span></p>
           <p class="has-text-weight-semibold is-align-self-center">Адрес: <span>{{ restaurantData.location }}</span></p>
-          <button class="find button is-primary is-outlined has-text-weight-semibold is-align-self-center">Забронировать</button>
+          <button class="button is-primary is-outlined has-text-weight-semibold is-align-self-center">Забронировать</button>
         </div>
       </div>
     </v-container>
@@ -61,7 +61,7 @@ span {
 div.stats p {
   margin-bottom: 1.5%;
 }
-/* button {
-  background: linear-gradient(98.96deg, #0ADA12 0%, #0ADA9B 100%);
-} */
+button {
+  border-color: linear-gradient(98.96deg, #0ADA12 0%, #0ADA9B 100%);
+}
 </style>

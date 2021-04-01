@@ -10,7 +10,6 @@
             <span aria-hidden="true"></span>
           </a>
         </div>
-
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-end pt-1">
             <router-link :to="'/'">

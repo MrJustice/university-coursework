@@ -16,9 +16,18 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
     queryset = models.FoodEstablishment.objects.all()
     serializer_class = serializers.FoodEstablishmentSerializer
 
-    def list(self, request):
-        queryset = models.FoodEstablishment.objects.all()
-        serializer = serializers.FoodEstablishmentSerializer(queryset, many=True)
+    def list(self, request, *args, **kwargs):
+        filter_by_type = request.query_params.getlist('filter_by_type[]')
+        filter_by_cousine = request.query_params.getlist('filter_by_cousine[]')
+
+        if filter_by_type:
+            items = [item for item in self.queryset if item.type in filter_by_type]
+            self.queryset = items
+        if filter_by_cousine:
+            items = [item for item in self.queryset if item.cousine in filter_by_cousine]
+            self.queryset = items
+        
+        serializer = serializers.FoodEstablishmentSerializer(self.queryset, many=True)
         return Response(serializer.data)
 
     def create(self, request):
@@ -40,6 +49,6 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
     @staticmethod
     @api_view(['GET'])
     def get_high_rated(request):
-        queryset = models.FoodEstablishment.objects.order_by('-rating')[:4]
+        queryset = models.FoodEstablishment.objects.order_by('-rating')[:3]
         serializer = serializers.FoodEstablishmentHomeScreenSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

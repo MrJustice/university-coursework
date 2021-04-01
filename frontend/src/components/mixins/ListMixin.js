@@ -12,7 +12,8 @@ export default {
         .then(response => {
           this.items = response.data;
           this.itemsLoading = false;
-        });
+        })
+        .catch(error => console.log(error))
     },
     showUpdateDialog(item, event) {
       this.currentItem = item;
