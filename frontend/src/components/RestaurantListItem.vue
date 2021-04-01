@@ -32,16 +32,31 @@
           <br> Адрес: {{ restaurant_data.location }}
         </div>
         <div class="column is-4 is-flex is-align-items-end is-justify-content-end">
-          <v-btn color="yellow darken-4" text>Забронировать</v-btn>
+          <v-btn 
+            @click="showReservePopup"
+            color="yellow darken-4" 
+            text
+          >
+            Забронировать
+          </v-btn>
         </div>
       </div>
     </div>
+    <restaurant-reserve 
+      v-if="isPopupVisible"
+      @closePopup="closeReservePopup"
+      :restaurant_data="this.restaurant_data"></restaurant-reserve>
   </div>
 </template>
 
 <script>
+import RestaurantReserve from './RestaurantReserve.vue';
+
 export default {
   name: "RestaurantListItem",
+  components: {
+    RestaurantReserve
+  },
   props: {
     restaurant_data: {
       type: Object,
@@ -50,11 +65,24 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      isPopupVisible: false,
+    }
+  },
   computed: {
     restaurantRating: function() {
       return parseFloat(this.restaurant_data.rating)
+    },
+  },
+  methods: {
+    showReservePopup() {
+      this.isPopupVisible = true;
+    },
+    closeReservePopup() {
+      this.isPopupVisible = false;
     }
-  }
+  },
 };
 </script>
 

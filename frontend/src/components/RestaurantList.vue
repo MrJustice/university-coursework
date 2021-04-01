@@ -62,12 +62,11 @@
 <script>
 import SearchBar from './SearchBar.vue';
 import RestaurantListItem from './RestaurantListItem.vue'
-import RestaurantReserve from "./RestaurantReserve.vue";
+
 export default {
-  name: "RestaurantList",
+  name: 'RestaurantList',
   components: {
     SearchBar,
-    RestaurantReserve,
     RestaurantListItem
   },
   data() {
