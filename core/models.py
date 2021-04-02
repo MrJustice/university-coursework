@@ -10,7 +10,6 @@ class Guest(models.Model):
     Model for guests
     """
     first_name = models.CharField('Имя', max_length=128)
-    last_name = models.CharField('Фамилия', max_length=128, blank=True)
     phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
 
     def __str__(self):
@@ -73,6 +72,11 @@ class FoodEstablishment(models.Model):
 
 
 class Feedback(models.Model):
+    """
+    Отзывы
+    """
+    guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True)
+    food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
     comment = models.CharField(max_length=500, **BLANK_NULL)
     rating = models.PositiveSmallIntegerField('Рейтинг', **BLANK_NULL)
 
@@ -100,7 +104,6 @@ class Reservation(models.Model):
     guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
     number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
     start_date = models.DateTimeField('Дата и время начала брони')
-    end_date = models.DateTimeField('Дата и время окончания брони')
 
     def __str__(self):
         return str(self.guest_food_establishment) + ': ' + self.start_date
@@ -121,12 +124,12 @@ class Table(models.Model):
     number = models.PositiveSmallIntegerField('Номер стола')
     number_of_seats = models.PositiveSmallIntegerField('Количество мест за столом', **BLANK_NULL)
     smoke = models.BooleanField('Стол для курящих', default=False)
-    status = models.CharField(max_length=3, choices=STATUS_CHOICES, default=FREE)
+    status = models.BooleanField('Забронирван', default=False)
 
 
-class ReservedTable(models.Model):
-    """
-    Model for tables on each reservation
-    """
-    table = models.OneToOneField(Table, on_delete=models.CASCADE)
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+# class ReservedTable(models.Model):
+#     """
+#     Model for tables on each reservation
+#     """
+#     table = models.OneToOneField(Table, on_delete=models.CASCADE)
+#     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)

@@ -9,23 +9,36 @@
           hide-details="auto"
           dark
         ></v-text-field>
+        <v-text-field
+          v-model="guestPhone"
+          label="Номер телефона"
+          hide-details="auto"
+          dark
+        ></v-text-field>
       </v-card-text>
       <v-card-title>Свободное время</v-card-title>
       <v-card-text>
         <v-chip-group
           active-class="yellow darken-4"
-          column
+          mandatory
           v-model="selection"
         >
           <v-chip>5:30</v-chip>
           <v-chip>7:30</v-chip>
           <v-chip>8:00</v-chip>
           <v-chip>9:00</v-chip>
+          <!-- <v-chip v-for="time in possibleTimeChoices" :key="time">{{time}}</v-chip> -->
         </v-chip-group>
       </v-card-text>
       <v-card-actions class="is-flex is-justify-content-space-between px-4">
-        <button class="button is-danger is-rounded has-text-weight-semibold is-small has-text-black" @click="closePopup">Отмена</button>
-        <button class="button is-primary is-rounded has-text-weight-semibold is-small has-text-black">Забронировать</button>
+        <button class="button is-danger is-rounded has-text-weight-semibold is-small has-text-black"
+          @click="closePopup"
+          >Отмена
+        </button>
+        <button class="button is-primary is-rounded has-text-weight-semibold is-small has-text-black"
+          @click="closePopup"
+          >Забронировать
+        </button>
       </v-card-actions>
     </v-card>
   </div>
@@ -45,6 +58,7 @@ export default {
   data() {
     return {
       guestName: '',
+      guestPhone: '',
       selection: null,
       timeChoices: ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', 
                     '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30',
@@ -59,6 +73,12 @@ export default {
     }
   },
   methods: {
+    reserve() {
+      this.axios
+          .post()
+          .then()
+          .catch(error => {})
+    },
     closePopup() {
       this.$emit('closePopup');
     }
