@@ -58,7 +58,6 @@ class FoodEstablishment(models.Model):
     opening_time = models.CharField(max_length=5, blank=True)
     closing_time = models.CharField(max_length=5, blank=True)
     email = models.EmailField('Адрес электронной почты', max_length=128, **BLANK_NULL)
-    number_of_tables = models.PositiveSmallIntegerField('Количество столов', **BLANK_NULL)
     big_image = models.ImageField('Логотип', **BLANK_NULL)
     preview_image = models.ImageField('Превью', **BLANK_NULL)
     guests = models.ManyToManyField(Guest, through='GuestFoodEstablishmentM2M', related_name='food_establishments')

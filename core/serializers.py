@@ -23,7 +23,7 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
-                  'email', 'number_of_tables', 'type', 'working_hours']
+                  'email', 'type', 'working_hours']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
