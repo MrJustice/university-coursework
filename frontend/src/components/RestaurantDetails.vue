@@ -17,18 +17,34 @@
           <p class="has-text-weight-semibold is-align-self-center">Телефон: <span>{{ restaurantData.phone }}</span></p>
           <p class="has-text-weight-semibold is-align-self-center">Время работы: <span>{{ restaurantData.working_hours }}</span></p>
           <p class="has-text-weight-semibold is-align-self-center">Адрес: <span>{{ restaurantData.location }}</span></p>
-          <button class="button is-primary is-outlined has-text-weight-semibold is-align-self-center">Забронировать</button>
+          <v-btn class="button is-primary is-outlined has-text-weight-semibold is-align-self-center"
+            @click="showReservePopup"
+            text
+          >
+            Забронировать
+          </v-btn>
         </div>
       </div>
     </v-container>
+    <restaurant-reserve 
+      v-if="isPopupVisible"
+      @closePopup="closeReservePopup"
+      :restaurant_data="this.restaurantData">
+    </restaurant-reserve>
   </v-container>
 </template>
 
 <script>
+import RestaurantReserve from './RestaurantReserve.vue';
+
 export default {
   name: "RestaurantDetails",
+  components: {
+    RestaurantReserve
+  },
   data() {
     return {
+      isPopupVisible: false,
       restaurantId: this.$route.params.id,
       restaurantData: {},
       restaurantRating: 0.0,
@@ -44,6 +60,12 @@ export default {
         })
         .catch(error => console.log("Connection lost"))
     },
+    showReservePopup() {
+      this.isPopupVisible = true;
+    },
+    closeReservePopup() {
+      this.isPopupVisible = false;
+    }
   },
   mounted() {
     this.getRestaurantData();

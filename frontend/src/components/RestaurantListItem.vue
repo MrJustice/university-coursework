@@ -45,7 +45,8 @@
     <restaurant-reserve 
       v-if="isPopupVisible"
       @closePopup="closeReservePopup"
-      :restaurant_data="this.restaurant_data"></restaurant-reserve>
+      :restaurant_data="this.restaurant_data">
+    </restaurant-reserve>
   </div>
 </template>
 

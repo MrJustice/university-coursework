@@ -35,15 +35,31 @@
         <router-link :to="{ name: 'RestaurantPage', params: { id: restaurant_data.id } }">
           <v-btn color="yellow darken-4" text>Подробнее</v-btn>
         </router-link>
-        <v-btn color="yellow darken-4" text>Забронировать</v-btn>
+        <v-btn 
+            @click="showReservePopup"
+            color="yellow darken-4" 
+            text
+          >
+            Забронировать
+        </v-btn>
       </v-card-actions>
     </v-card>
+    <restaurant-reserve 
+      v-if="isPopupVisible"
+      @closePopup="closeReservePopup"
+      :restaurant_data="this.restaurant_data">
+    </restaurant-reserve>
   </div>
 </template>
 
 <script>
+import RestaurantReserve from './RestaurantReserve.vue';
+
 export default {
   name: "HomeRestaurantListItem",
+  components: {
+    RestaurantReserve
+  },
   props: {
     restaurant_data: {
       type: Object,
@@ -52,9 +68,22 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      isPopupVisible: false,
+    }
+  },
   computed: {
     restaurantRating: function() {
       return parseFloat(this.restaurant_data.rating)
+    }
+  },
+  methods: {
+    showReservePopup() {
+      this.isPopupVisible = true;
+    },
+    closeReservePopup() {
+      this.isPopupVisible = false;
     }
   }
 };
