@@ -1,7 +1,7 @@
 <template>
   <div class="popup_wrapper" ref="popup_wrapper">
     <v-card class="glass column is-4-desktop is-7-mobile has-text-white">
-      <v-card-title>{{ restaurant_data.type + ' "' + restaurant_data.title + '"' }}</v-card-title>
+      <v-card-title class="is-size-3 is-flex is-justify-content-center">{{ restaurant_data.type + ' "' + restaurant_data.title + '"' }}</v-card-title>
       <v-card-text>
         <v-text-field
           v-model="guestName"
@@ -15,6 +15,24 @@
           hide-details="auto"
           dark
         ></v-text-field>
+        <div class="is-flex is-justify-content-center has-text-white pl-0 pt-5">
+          Количество гостей:
+          <el-input-number
+            class="ml-5"
+            v-model="guestPersons"
+            :min="1"
+            :max="12"
+            size="mini"
+          ></el-input-number>
+        </div>
+        <!-- <v-text-field
+          v-model="guestPersons"
+          type="number"
+          label="Количество людей"
+          hide-details="auto"
+          dark
+        ></v-text-field> -->
+        
       </v-card-text>
       <v-card-title>Свободное время</v-card-title>
       <v-card-text>
@@ -59,6 +77,7 @@ export default {
     return {
       guestName: '',
       guestPhone: '',
+      guestPersons: '',
       selection: null,
       timeChoices: ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', 
                     '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30',

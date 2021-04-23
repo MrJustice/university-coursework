@@ -62,3 +62,8 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         queryset = models.FoodEstablishment.objects.order_by('-rating')[:3]
         serializer = serializers.FoodEstablishmentHomeScreenSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @staticmethod
+    @api_view(['POST'])
+    def reserve(request):
+        pass

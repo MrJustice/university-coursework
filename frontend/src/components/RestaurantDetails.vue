@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="data__title is-flex is-size-3 has-text-weight-bold px-7">
+    <div class="data__title is-flex is-size-3 pl-9 mb-1">
       {{ restaurantData.type + ' "' + restaurantData.title + '"'}}
     </div>
     <v-img height="308" contain :src="require('../assets/home_image.png')"/>
