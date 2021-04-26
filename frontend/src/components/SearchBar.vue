@@ -15,6 +15,7 @@
             v-model="computedDateFormatted"
             prepend-inner-icon="event"
             readonly
+            placeholder="Дата"
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
@@ -35,6 +36,7 @@
         :items="timeChoices"
         prepend-inner-icon="query_builder"
         autocomplete
+        placeholder="Время"
         @change="sendData"
       ></v-select>
     </div>
@@ -45,6 +47,7 @@
         :items="personChoices"
         prepend-inner-icon="people"
         autocomplete
+        placeholder="Кол-во человек"
         @change="sendData"
       ></v-select>
     </div>
@@ -69,21 +72,49 @@ export default {
   data() {
     return {
       menu: false,
-      search_by_date: new Date().toISOString().slice(0, 10),
-      search_by_time: '15:00',
-      search_by_number_of_persons: 2,
-      search_by_name: '',
       timeChoices: ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', 
                     '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30',
                     '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
                     '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
                     '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
-      personChoices: [1,2,3,4,5,6],
+      personChoices: ['1','2','3','4','5+',],
     }
   },
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.search_by_date)
+    },
+    search_by_date: {
+      get() {
+        return this.$store.state.search_by_date
+      },
+      set(value) {
+        this.$store.commit('CHANGE_DATE', value)
+      }
+    },
+    search_by_time: {
+      get() {
+        return this.$store.state.search_by_time
+      },
+      set(value) {
+        this.$store.commit('CHANGE_TIME', value)
+      }
+    },
+    search_by_number_of_persons: {
+      get() {
+        return this.$store.state.search_by_number_of_persons
+      },
+      set(value) {
+        this.$store.commit('CHANGE_NUMBER_OF_PERSONS', value)
+      }
+    },
+    search_by_name: {
+      get() {
+        return this.$store.state.search_by_name
+      },
+      set(value) {
+        this.$store.commit('CHANGE_NAME', value)
+      }
     }
   },
   methods: {
@@ -93,8 +124,9 @@ export default {
       return `${day}.${month}.${year}`
     },
     sendData() {
-      this.$emit('sendAllData', [this.search_by_date, this.search_by_time, this.search_by_number_of_persons, this.search_by_name])
-    }
+      this.$emit('sendAllData', [this.search_by_date, this.search_by_time,
+                                 this.search_by_number_of_persons, this.search_by_name])
+    },
   },
 };
 </script>

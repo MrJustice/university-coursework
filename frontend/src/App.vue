@@ -64,4 +64,17 @@ nav.navbar {
   background-repeat: no-repeat;
   width: 125px;
 }
+
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1, 1, 0, 0);
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(500px);
+  opacity: 0;
+}
 </style>

@@ -10,10 +10,10 @@ class Guest(models.Model):
     Model for guests
     """
     first_name = models.CharField('Имя', max_length=128)
-    phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
+    phone = PhoneNumberField('Номер телефона', unique=True, **BLANK_NULL)
 
     def __str__(self):
-        return self.last_name + ' ' + self.first_name
+        return self.first_name
 
 
 class FoodEstablishment(models.Model):
@@ -63,7 +63,7 @@ class FoodEstablishment(models.Model):
     guests = models.ManyToManyField(Guest, through='GuestFoodEstablishmentM2M', related_name='food_establishments')
 
     def __str__(self):
-        return self.type + ' "' + self.title + '"'
+        return self.get_type_display() + ' "' + self.title + '"'
 
     @property
     def working_hours(self):
@@ -87,13 +87,16 @@ class GuestFoodEstablishmentM2M(models.Model):
     guest = models.ForeignKey(Guest, on_delete=models.CASCADE)
     food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE)
     member_since = models.DateField('Первое посещение', **BLANK_NULL)
-    number_of_visits = models.PositiveSmallIntegerField('Количество посещений', **BLANK_NULL)
+    number_of_visits = models.PositiveSmallIntegerField('Количество посещений', default=0, **BLANK_NULL)
 
     class Meta:
         unique_together = ['guest', 'food_establishment']
 
     def __str__(self):
-        return self.food_establishment + '-' + self.guest
+        return str(self.food_establishment) + ' - Гость: ' + str(self.guest)
+
+    def increment_number_of_visits(self):
+        self.number_of_visits = self.number_of_visits + 1
 
 
 class Reservation(models.Model):

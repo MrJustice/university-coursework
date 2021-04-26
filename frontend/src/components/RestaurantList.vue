@@ -1,7 +1,12 @@
 <template>
   <v-container>
     <v-container class="search_layout">
-      <search-bar></search-bar>
+      <search-bar :search_by_date="searchData['date']"
+                  :search_by_time="searchData['time']"
+                  :search_by_number_of_persons="searchData['person']"
+                  :search_by_name="searchData['name']"
+      ></search-bar>
+      <!-- <search-bar></search-bar> -->
     </v-container>
     <v-divider class="mt-0"></v-divider>
     <div class="columns">
@@ -44,11 +49,6 @@
         </v-list>
       </div>
       <div class="column is-7">
-        <restaurant-list-item
-          v-for="item in items"
-          :key="item.id"
-          :restaurant_data="item"
-          ></restaurant-list-item>
         <restaurant-list-item
           v-for="item in items"
           :key="item.id"
@@ -136,6 +136,8 @@ export default {
       restaurantTypeList: [],
       restaurantCousineList: [],
       restaurantPriceList: [],
+      searchData: {'date': this.$route.params.date, 'time': this.$route.params.time,
+                   'person': this.$route.params.person, 'name': this.$route.params.name}
     }
   },
   computed: {},

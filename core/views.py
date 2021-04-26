@@ -1,3 +1,4 @@
+import datetime
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
@@ -66,4 +67,37 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
     @staticmethod
     @api_view(['POST'])
     def reserve(request):
+        guest_name = request.data.get("name")
+        guest_phone = request.data.get("phone")
+        number_of_persons = request.data.get("numberOfPersons")
+        guest_date = request.data.get("date")
+        guest_time = request.data.get("time")
+        guest_dt = datetime.datetime.strptime(
+            guest_date + " " + guest_time, "%Y-%m-%d %H:%M").replace(tzinfo=datetime.timezone.utc)
+
+        restaurant = models.FoodEstablishment.objects.get(id=request.data.get('restaurant'))
+        guest = models.Guest.objects.get_or_create(first_name=guest_name, phone=guest_phone)[0]
+        
+        try:
+            m2m = models.GuestFoodEstablishmentM2M.objects.get(guest=guest, food_establishment=restaurant)
+            m2m.increment_number_of_visits()
+            m2m.save()
+        except models.GuestFoodEstablishmentM2M.DoesNotExist:
+            m2m = models.GuestFoodEstablishmentM2M.objects.create(
+                guest=guest,
+                food_establishment=restaurant,
+                member_since=guest_date,
+                number_of_visits=1
+            )
+
+        reservation = models.Reservation.objects.create(
+            guest_food_establishment=m2m,
+            number_of_persons=number_of_persons,
+            start_date=guest_dt
+        )
+        return Response(status=status.HTTP_200_OK)
+
+    @staticmethod
+    @api_view(['GET'])
+    def get_list_of_reservations(request):
         pass
