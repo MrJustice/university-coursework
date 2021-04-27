@@ -57,6 +57,7 @@ export default {
         .then(response => {
           this.restaurantData = response.data
           this.restaurantRating = parseFloat(response.data.rating)
+          document.title = this.restaurantData.title + " | TR"
         })
         .catch(error => console.log("Connection lost"))
     },

@@ -47,6 +47,7 @@ export default {
     },
   },
   mounted() {
+    document.title = 'Home | TR'
     this.getHighRatedRestaurants();
   }
 };

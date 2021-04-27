@@ -1,6 +1,6 @@
 import datetime
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
 from rest_framework import status
@@ -46,7 +46,10 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         return Response(data, content_type='application/json')
 
     def retrieve(self, request, pk=None, *args, **kwargs):
-        queryset = self.queryset.get(id=pk)
+        try:
+            queryset = self.queryset.get(id=pk)
+        except models.FoodEstablishment.DoesNotExist:
+            raise Http404
         serializer = self.serializer_class(queryset)
         return Response(serializer.data)
 

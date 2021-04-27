@@ -12,6 +12,12 @@
 </template>
 
 <script>
+export default {
+  name: "About",
+  mounted() {
+    document.title = 'About | TR'
+  },
+}
 </script>
 
 <style scoped>

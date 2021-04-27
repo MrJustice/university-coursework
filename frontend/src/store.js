@@ -5,12 +5,18 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    isAuthenticated: false,
+    token: '',
+    isLoading: false,
     search_by_date: new Date().toISOString().slice(0, 10),
     search_by_time: '15:00',
     search_by_number_of_persons: '2',
     search_by_name: '',
   },
   mutations: {
+    SET_ISLOADING(state, status) {
+      state.isLoading = status
+    },
     CHANGE_DATE: (state, value) => {
       state.search_by_date = value
     },

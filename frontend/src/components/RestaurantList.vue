@@ -176,6 +176,7 @@ export default {
   },
   mounted() {
     this.fetchItems();
+    document.title = 'Places | TR'
   },
 };
 </script>
