@@ -83,6 +83,8 @@
 </template>
 
 <script>
+import { toast } from 'bulma-toast'
+
 export default {
   name: 'RestaurantReserve',
   props: {
@@ -123,7 +125,17 @@ export default {
                        'time': this.guestTime, 'restaurant': this.restaurant_data.id}
       this.axios
           .post("/api/reserve/", guestData)
-          .then(responce => {this.closePopup()})
+          .then(responce => {
+            toast({
+              message: 'Бронирование завершено!',
+              type: 'is-success',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 3000,
+              position: 'bottom-right'
+            })
+            this.closePopup();
+          })
           .catch(error => {})
     },
     closePopup() {
