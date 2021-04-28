@@ -69,6 +69,10 @@ class FoodEstablishment(models.Model):
     def working_hours(self):
         return self.opening_time + ' - ' + self.closing_time
 
+    @property
+    def get_number_of_tables(self):
+        return self.tables.all().count()
+
 
 class Feedback(models.Model):
     """
@@ -99,6 +103,18 @@ class GuestFoodEstablishmentM2M(models.Model):
         self.number_of_visits = self.number_of_visits + 1
 
 
+class Table(models.Model):
+    """
+    Model for tables
+    """
+    food_establishment = models.ForeignKey(FoodEstablishment, related_name='tables', on_delete=models.CASCADE, null=True)
+    number = models.PositiveSmallIntegerField('Номер стола')
+    smoke = models.BooleanField('Стол для курящих', default=False)
+
+    def __str__(self):
+        return f'Столик номер {self.number}'
+
+
 class Reservation(models.Model):
     """
     Model for reservations
@@ -106,27 +122,10 @@ class Reservation(models.Model):
     guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
     number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
     start_date = models.DateTimeField('Дата и время начала брони')
+    table = models.ForeignKey(Table, related_name="reservations", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.guest_food_establishment) + ': ' + self.start_date
-
-
-class Table(models.Model):
-    """
-    Model for tables
-    """
-    FREE = 'FR'
-    BOOKED = 'BKD'
-    STATUS_CHOICES = [
-        (FREE, 'Free'),
-        (BOOKED, 'Booked')
-    ]
-
-    food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
-    number = models.PositiveSmallIntegerField('Номер стола')
-    number_of_seats = models.PositiveSmallIntegerField('Количество мест за столом', **BLANK_NULL)
-    smoke = models.BooleanField('Стол для курящих', default=False)
-    status = models.BooleanField('Забронирван', default=False)
 
 
 # class ReservedTable(models.Model):

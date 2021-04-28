@@ -3,59 +3,70 @@
     <v-card class="glass column is-4-desktop is-7-mobile has-text-white">
       <v-card-title class="is-size-3 is-flex is-justify-content-center">{{ restaurant_data.type + ' "' + restaurant_data.title + '"' }}</v-card-title>
       <v-card-text class="pb-0">
-        <v-text-field
-          v-model="guestName"
-          label="Ваше имя"
-          hide-details="auto"
-          dark
-        ></v-text-field>
-        <v-text-field
-          v-model="guestPhone"
-          label="Номер телефона"
-          hide-details="auto"
-          dark
-        ></v-text-field>
-        <div class="is-flex is-justify-content-space-between has-text-white pl-0 pt-5">
-          <div class="est-date">
-            <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  class="mt-0 pt-1 mx-1"
-                  v-model="computedDateFormatted"
-                  prepend-inner-icon="event"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  dark
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                locale="ru"
-                v-model="guestDate"
-                @input="menu = false"
-                no-title
-                scrollable
-                dark
-              ></v-date-picker>
-            </v-menu>
+        <div class="columns">
+          <div class="column">
+            <v-text-field
+              v-model="guestName"
+              label="Ваше имя"
+              hide-details="auto"
+              dark
+            ></v-text-field>
+            <v-text-field
+              v-model="guestPhone"
+              label="Номер телефона"
+              hide-details="auto"
+              dark
+            ></v-text-field>
+            <div class="is-flex is-justify-content-space-between is-flex-direction-column has-text-white pl-0 pt-5">
+              <div class="est-date">
+                <v-menu
+                  v-model="menu"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      class="mt-0 pt-1 mx-1"
+                      v-model="computedDateFormatted"
+                      prepend-inner-icon="event"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                      dark
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    locale="ru"
+                    v-model="guestDate"
+                    @input="menu = false"
+                    no-title
+                    scrollable
+                    dark
+                  ></v-date-picker>
+                </v-menu>
+              </div>
+              <div class="is-flex is-justify-content-end">
+                <span>Кол-во гостей:</span>
+                <el-input-number
+                  class="ml-5"
+                  v-model="guestPersons"
+                  :min="1"
+                  :max="12"
+                ></el-input-number>
+              </div>
+            </div>    
           </div>
-          <div class="is-flex is-justify-content-end">
-            <span>Кол-во гостей:</span>
-            <el-input-number
-              class="ml-5"
-              v-model="guestPersons"
-              :min="1"
-              :max="12"
-            ></el-input-number>
+          <div class="column">
+            <v-select
+              :items="restaurant_data.tables"
+              label="Выберите столик"
+              dark
+          ></v-select>
           </div>
-        </div>    
+        </div>
       </v-card-text>
       <v-card-title>Свободное время</v-card-title>
       <v-card-text>
@@ -65,7 +76,10 @@
           column
           v-model="guestTime"
         >
-          <v-chip v-for="time in possibleTimeChoices" :key="time" :value="time">{{time}}</v-chip>
+          <v-chip class="is-flex is-justify-content-center" 
+                  style="width: 11%; margin-right: 1.5%" 
+                  v-for="time in possibleTimeChoices" :key="time" :value="time"
+          >{{time}}</v-chip>
         </v-chip-group>
       </v-card-text>
       <v-card-actions class="is-flex is-justify-content-space-between px-4">
@@ -112,7 +126,13 @@ export default {
   },
   computed: {
     possibleTimeChoices() {
-      return this.timeChoices.slice(0, 9)
+      let workingHours = this.restaurant_data.working_hours.split(" ")
+      let freeHours = []
+      for (let i = 0; i <= this.timeChoices.length; i++) {
+        if (this.timeChoices[i] >= workingHours[0] && this.timeChoices[i] <= workingHours[2])
+          freeHours.push(this.timeChoices[i])
+      }
+      return freeHours
     },
     computedDateFormatted() {
       return this.formatDate(this.guestDate)
@@ -176,18 +196,14 @@ export default {
   /* top: 40%;
   left: 5.5%; */
   top: 20%;
-  left: 35%;
+  left: 33.5%;
   background: linear-gradient(
     to right bottom,
-    rgba(0,0,0, 0.8),
-    rgba(0,0,0, 0.7)
+    rgba(0,0,0, 0.9),
+    rgba(0,0,0, 0.75)
   );
   border-radius: 1.5rem;
   backdrop-filter: blur(2rem);
-}
-
-span {
-  text-align: end;
 }
 
 .el-input-number {
