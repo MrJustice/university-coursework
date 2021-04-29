@@ -110,6 +110,7 @@ class Table(models.Model):
     food_establishment = models.ForeignKey(FoodEstablishment, related_name='tables', on_delete=models.CASCADE, null=True)
     number = models.PositiveSmallIntegerField('Номер стола')
     smoke = models.BooleanField('Стол для курящих', default=False)
+    image = models.ImageField('Фото', **BLANK_NULL)
 
     def __str__(self):
         return f'Столик номер {self.number}'
@@ -122,10 +123,10 @@ class Reservation(models.Model):
     guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
     number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
     start_date = models.DateTimeField('Дата и время начала брони')
-    table = models.ForeignKey(Table, related_name="reservations", on_delete=models.CASCADE, null=True)
+    table = models.PositiveSmallIntegerField('Номер стола', **BLANK_NULL)
 
     def __str__(self):
-        return str(self.guest_food_establishment) + ': ' + self.start_date
+        return str(self.guest_food_establishment) + ' в ' + self.start_date.strftime('%H:%M')
 
 
 # class ReservedTable(models.Model):

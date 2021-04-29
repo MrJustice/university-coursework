@@ -73,6 +73,7 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         guest_name = request.data.get("name")
         guest_phone = request.data.get("phone")
         number_of_persons = request.data.get("numberOfPersons")
+        guest_table = request.data.get("table")
         guest_date = request.data.get("date")
         guest_time = request.data.get("time")
         guest_dt = datetime.datetime.strptime(
@@ -96,7 +97,8 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         reservation = models.Reservation.objects.create(
             guest_food_establishment=m2m,
             number_of_persons=number_of_persons,
-            start_date=guest_dt
+            start_date=guest_dt,
+            table=guest_table
         )
         return Response(status=status.HTTP_200_OK)
 

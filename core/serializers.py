@@ -25,12 +25,12 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
     owner = BasicUserSerializer()
     type = serializers.CharField(source='get_type_display', read_only=True)
     cousine = serializers.CharField(source='get_cousine_display', read_only=True)
-    table = TableSerializer()
+    tables = TableSerializer(many=True)
 
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
-                  'email', 'type', 'working_hours', 'table']
+                  'email', 'type', 'working_hours', 'tables']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
@@ -39,10 +39,12 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
 class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
     type = serializers.CharField(source='get_type_display', read_only=True)
     cousine = serializers.CharField(source='get_cousine_display', read_only=True)
+    tables = TableSerializer(many=True)
 
     class Meta:
         model = FoodEstablishment
-        fields = ['id', 'type', 'title', 'cousine', 'average_check', 'location', 'rating', 'phone', 'working_hours']
+        fields = ['id', 'type', 'title', 'cousine', 'average_check', 'location', 'rating', 'phone', 'working_hours',
+                  'tables']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
@@ -55,14 +57,6 @@ class GuestFoodEstablishmentM2MSerializer(serializers.ModelSerializer):
     class Meta:
         model = GuestFoodEstablishmentM2M
         fileds = ['guest', 'food_establishment', 'member_since', 'number_of_visits']
-
-
-class TableSerializer(serializers.ModelSerializer):
-    food_establishment = FoodEstablishment()
-
-    class Meta:
-        model = Table
-        fields = ['food_establishment', 'number', 'number_of_seats', 'smoke', 'status']
 
 
 class ReservationSerializer(serializers.ModelSerializer):

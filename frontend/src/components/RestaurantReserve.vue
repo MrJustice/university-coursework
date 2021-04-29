@@ -61,8 +61,12 @@
           </div>
           <div class="column">
             <v-select
-              :items="restaurant_data.tables"
               label="Выберите столик"
+              :items="restaurant_data.tables"
+              item-text="number"
+              item-value="id"
+              v-model="guestTable"
+              :clearable="true"
               dark
           ></v-select>
           </div>
@@ -115,6 +119,7 @@ export default {
       guestPhone: '',
       guestPersons: this.$store.state.search_by_number_of_persons,
       guestTime: null,
+      guestTable: null,
       menu: false,
       guestDate: this.$store.state.search_by_date,
       timeChoices: ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', 
@@ -142,7 +147,8 @@ export default {
     reserve() {
       let guestData = {'name': this.guestName, 'phone': this.guestPhone,
                        'numberOfPersons': this.guestPersons, 'date': this.guestDate,
-                       'time': this.guestTime, 'restaurant': this.restaurant_data.id}
+                       'time': this.guestTime, 'table': this.guestTable,
+                       'restaurant': this.restaurant_data.id}
       this.axios
           .post("/api/reserve/", guestData)
           .then(responce => {
