@@ -12,4 +12,5 @@ urlpatterns = [
     #Food establisments
     url('get-high-rated/', views.FoodEstablishmentViewSet.get_high_rated, name='get_high_rated'),
     url('reserve/', views.FoodEstablishmentViewSet.reserve, name='reserve'),
+    url('guest-history/', views.guest_history, name='guest_history')
 ]

@@ -4,6 +4,7 @@ import Home from '../components/Home.vue'
 import About from '../components/About.vue'
 import RestaurantList from '../components/RestaurantList.vue'
 import RestaurantDetails from '../components/RestaurantDetails.vue'
+import ReservationHistory from '../components/ReservationHistory.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/history',
+      name: 'History',
+      component: ReservationHistory
     },
     {
       path: '/places',

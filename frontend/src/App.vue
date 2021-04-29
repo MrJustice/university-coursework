@@ -15,6 +15,9 @@
             <router-link :to="'/'">
               <a class="navbar-item has-text-black" href="#">Главная</a>
             </router-link>
+            <router-link :to="'History'">
+              <a class="navbar-item has-text-black" href="#">История</a>
+            </router-link>
             <router-link :to="'About'">
               <a class="navbar-item has-text-black" href="#">О нас</a>
             </router-link>
