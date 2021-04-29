@@ -39,17 +39,18 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
+                    no-title
+                    scrollable
                     locale="ru"
                     v-model="guestDate"
                     @input="menu = false"
-                    no-title
-                    scrollable
+                    :first-day-of-week="1"
                     dark
                   ></v-date-picker>
                 </v-menu>
               </div>
               <div class="is-flex is-justify-content-end">
-                <span>Кол-во гостей:</span>
+                <span class="is-size-6">Кол-во гостей:</span>
                 <el-input-number
                   class="ml-5"
                   v-model="guestPersons"
@@ -57,22 +58,25 @@
                   :max="12"
                 ></el-input-number>
               </div>
+              <v-card-title class="pl-0 pb-0">Свободное время:</v-card-title>
             </div>    
           </div>
           <div class="column">
-            <v-select
-              label="Выберите столик"
-              :items="restaurant_data.tables"
-              item-text="number"
-              item-value="id"
-              v-model="guestTable"
-              :clearable="true"
-              dark
-          ></v-select>
+            <div class="is-flex is-flex-direction-column">
+              <v-select
+                label="Выберите столик"
+                :items="restaurant_data.tables"
+                item-text="number"
+                return-object
+                dark
+                v-model="guestTable"
+                :clearable="true"
+              ></v-select>
+              <v-img contain max-width="266" max-height="190" :src="tablePhoto"></v-img>
+            </div>
           </div>
         </div>
       </v-card-text>
-      <v-card-title>Свободное время</v-card-title>
       <v-card-text>
         <v-chip-group
           active-class="yellow darken-4"
@@ -130,6 +134,10 @@ export default {
     }
   },
   computed: {
+    tablePhoto() {
+      if (this.guestTable)
+        return this.guestTable.image
+    },
     possibleTimeChoices() {
       let workingHours = this.restaurant_data.working_hours.split(" ")
       let freeHours = []
@@ -147,7 +155,7 @@ export default {
     reserve() {
       let guestData = {'name': this.guestName, 'phone': this.guestPhone,
                        'numberOfPersons': this.guestPersons, 'date': this.guestDate,
-                       'time': this.guestTime, 'table': this.guestTable,
+                       'time': this.guestTime, 'table': this.guestTable.number,
                        'restaurant': this.restaurant_data.id}
       this.axios
           .post("/api/reserve/", guestData)

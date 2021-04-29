@@ -21,11 +21,12 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          locale="ru"
-          v-model="search_by_date"
-          @input="menu = false"
           no-title
           scrollable
+          locale="ru"
+          @input="menu = false"
+          :first-day-of-week="1"
+          v-model="search_by_date"
         ></v-date-picker>
       </v-menu>
     </div>

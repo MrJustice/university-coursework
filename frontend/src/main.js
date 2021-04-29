@@ -6,6 +6,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui';
 import vuetify from './plugins/vuetify';
+// import VueExpandableImage from 'vue-expandable-image'
+// var VueExpandableImage = require('vue-expandable-image')
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -17,6 +19,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
+// Vue.use(VueExpandableImage)
 
 new Vue({
   router,
