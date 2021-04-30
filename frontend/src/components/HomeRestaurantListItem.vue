@@ -6,7 +6,7 @@
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
       ></v-img>
       <v-card-title class="s-flex is-justify-content-space-between">
-        {{ restaurant_data.type + ' "' + restaurant_data.title + '"' }}
+        {{ restaurant_data.full_title }}
         <div>
           <v-rating
             v-model="restaurantRating"

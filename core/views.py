@@ -111,6 +111,6 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
 @api_view(['POST'])
 def guest_history(request):
     guest_phone = request.data.get("phone")
-    reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone__exact=guest_phone)
+    reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone=guest_phone)
     serializer = serializers.ReservationSerializer(reservations, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)

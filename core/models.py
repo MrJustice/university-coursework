@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import models.CharField
 
 BLANK_NULL = {'blank': True, 'null': True}
 
@@ -10,7 +10,7 @@ class Guest(models.Model):
     Model for guests
     """
     first_name = models.CharField('Имя', max_length=128)
-    phone = PhoneNumberField('Номер телефона', unique=True, **BLANK_NULL)
+    phone = models.CharField('Номер телефона', max_length=15, unique=True, **BLANK_NULL)
 
     def __str__(self):
         return self.first_name
@@ -53,7 +53,7 @@ class FoodEstablishment(models.Model):
     cousine = models.CharField('Кухня', max_length=2, choices=COUSINE_CHOICES, default=COUSINE_CHOICES[0][0])
     average_check = models.PositiveSmallIntegerField('Средний чек', **BLANK_NULL)
     rating = models.DecimalField('Рейтинг', max_digits=2, decimal_places=1, default=0.0, **BLANK_NULL)
-    phone = PhoneNumberField('Номер телефона', **BLANK_NULL)
+    phone = models.CharField('Номер телефона', max_length=15, **BLANK_NULL)
     location = models.CharField(max_length=128, blank=True)
     opening_time = models.CharField(max_length=5, blank=True)
     closing_time = models.CharField(max_length=5, blank=True)
@@ -73,6 +73,9 @@ class FoodEstablishment(models.Model):
     def get_number_of_tables(self):
         return self.tables.all().count()
 
+    @property
+    def full_title(self):
+        return self.get_type_display() + ' "' + self.title + '"'
 
 class Feedback(models.Model):
     """

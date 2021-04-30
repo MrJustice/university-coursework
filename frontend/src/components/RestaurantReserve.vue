@@ -140,6 +140,10 @@ export default {
     },
     possibleTimeChoices() {
       let workingHours = this.restaurant_data.working_hours.split(" ")
+      if (workingHours[0].length != 5)
+        workingHours[0] = "0" + workingHours[0]
+      if (workingHours[1].length != 5)
+        workingHours[1] = "0" + workingHours[1]  
       let freeHours = []
       for (let i = 0; i <= this.timeChoices.length; i++) {
         if (this.timeChoices[i] >= workingHours[0] && this.timeChoices[i] <= workingHours[2])
