@@ -8,7 +8,7 @@
     </div>
     <div class="column is-9">
       <router-link :to="{ name: 'RestaurantPage', params: { id: restaurant_data.id } }">
-        <span class="has-text-weight-bold is-size-5 has-text-black">{{ restaurant_data.type + ' "' + restaurant_data.title + '" (' + restaurant_data.cousine + ' кухня)'}}</span>
+        <span class="has-text-weight-bold is-size-5 has-text-black">{{ restaurant_data.full_title + '" (' + restaurant_data.cousine + ' кухня)'}}</span>
       </router-link>
       <br> Средний чек: {{ restaurant_data.average_check }} руб.
       <div>

@@ -53,7 +53,7 @@
           v-for="item in items"
           :key="item.id"
           :restaurant_data="item"
-          ></restaurant-list-item>
+        ></restaurant-list-item>
       </div>
     </div>
   </v-container>

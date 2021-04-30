@@ -7,7 +7,7 @@ BLANK_NULL = {'blank': True, 'null': True}
 
 class Guest(models.Model):
     """
-    Model for guests
+    Guests
     """
     first_name = models.CharField('Имя', max_length=128)
     phone = models.CharField('Номер телефона', max_length=15, unique=True, **BLANK_NULL)
@@ -18,7 +18,7 @@ class Guest(models.Model):
 
 class FoodEstablishment(models.Model):
     """
-    Model for food establishments
+    Food establishments
     """
     BELARUS = 'BY'
     RUSSIA = 'RU'
@@ -79,7 +79,7 @@ class FoodEstablishment(models.Model):
 
 class Feedback(models.Model):
     """
-    Отзывы
+    Feedback
     """
     guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True)
     food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
@@ -108,7 +108,7 @@ class GuestFoodEstablishmentM2M(models.Model):
 
 class Table(models.Model):
     """
-    Model for tables
+    Tables
     """
     food_establishment = models.ForeignKey(FoodEstablishment, related_name='tables', on_delete=models.CASCADE, null=True)
     number = models.PositiveSmallIntegerField('Номер стола')
@@ -121,11 +121,11 @@ class Table(models.Model):
 
 class Reservation(models.Model):
     """
-    Model for reservations
+    Reservations
     """
     guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
     number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
-    start_date = models.DateTimeField('Дата и время начала брони')
+    start_date = models.DateTimeField('Дата и время брони')
     table = models.PositiveSmallIntegerField('Номер стола', **BLANK_NULL)
 
     def __str__(self):
@@ -134,7 +134,6 @@ class Reservation(models.Model):
 
 # class ReservedTable(models.Model):
 #     """
-#     Model for tables on each reservation
 #     """
 #     table = models.OneToOneField(Table, on_delete=models.CASCADE)
-#     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+#     reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE)

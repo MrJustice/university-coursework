@@ -119,6 +119,8 @@ export default {
   },
   data() {
     return {
+      allReservations: {},
+      lockedTables: {},
       guestName: '',
       guestPhone: '',
       guestPersons: this.$store.state.search_by_number_of_persons,
@@ -142,13 +144,24 @@ export default {
       let workingHours = this.restaurant_data.working_hours.split(" ")
       if (workingHours[0].length != 5)
         workingHours[0] = "0" + workingHours[0]
-      if (workingHours[1].length != 5)
-        workingHours[1] = "0" + workingHours[1]  
+      if (workingHours[2].length != 5)
+        workingHours[2] = "0" + workingHours[2]  
+
+      let start = 0
+      let end = 0
       let freeHours = []
-      for (let i = 0; i <= this.timeChoices.length; i++) {
-        if (this.timeChoices[i] >= workingHours[0] && this.timeChoices[i] <= workingHours[2])
-          freeHours.push(this.timeChoices[i])
+
+      if (workingHours[0] < workingHours[2]) {
+        start = this.timeChoices.indexOf(workingHours[0])
+        end = this.timeChoices.indexOf(workingHours[2])
+        freeHours = this.timeChoices.slice(start,end-1)
+      } else if (workingHours[0] > workingHours[2]) {
+        start = this.timeChoices.indexOf(workingHours[0])
+        let newTimeChoices = this.timeChoices.slice(start).concat(this.timeChoices.slice(0, start));
+        end = newTimeChoices.indexOf(workingHours[2])
+        freeHours = newTimeChoices.slice(0,end-1)
       }
+
       return freeHours
     },
     computedDateFormatted() {
@@ -176,6 +189,17 @@ export default {
           })
           .catch(error => {})
     },
+    getReservations() {
+      this.axios
+          .get("/api/get-restaurant-reservations/", {params: this.restaurant_data.id})
+          .then(responce => {
+            this.allReservations = responce.data
+          })
+          .catch(error => {})
+    },
+    getLockedTables() {
+      
+    },
     closePopup() {
       this.$emit('closePopup');
     },
@@ -191,7 +215,8 @@ export default {
       if (item.target === vm.$refs['popup_wrapper'])
         vm.closePopup();
     })
-  }
+    this.getReservations()
+  },
 }
 </script>
 
