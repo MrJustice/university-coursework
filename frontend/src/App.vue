@@ -38,8 +38,18 @@
 <script>
 export default {
   name: "app",
-
   data: () => ({}),
+  beforeCreate() {
+    this.$store.commit('INITIALIZE_STORE')
+    
+    const token = this.$store.state.token
+
+    if (token) {
+      this.axios.defaults.headers.common["Authorization"] = "Token" + token
+    } else {
+      this.axios.defaults.headers.common["Authorization"] = ""
+    }
+  }
 };
 </script>
 

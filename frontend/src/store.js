@@ -14,8 +14,25 @@ const store = new Vuex.Store({
     search_by_name: '',
   },
   mutations: {
+    INITIALIZE_STORE(state) {
+      if (localStorage.getItem('token')) {
+        state.token = localStorage.getItem('token')
+        state.isAuthenticated = true
+      } else {
+        state.token = ''
+        state.isAuthenticated = true
+      }
+    },
     SET_ISLOADING(state, status) {
       state.isLoading = status
+    },
+    SET_TOKEN(state, token) {
+      state.token = token
+      state.isAuthenticated = true
+    },
+    REMOVE_TOKEN(state) {
+      state.token = ''
+      state.isAuthenticated = false
     },
     CHANGE_DATE: (state, value) => {
       state.search_by_date = value

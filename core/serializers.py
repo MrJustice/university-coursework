@@ -23,14 +23,13 @@ class TableSerializer(serializers.ModelSerializer):
 
 class FoodEstablishmentSerializer(serializers.ModelSerializer):
     owner = BasicUserSerializer()
-    type = serializers.CharField(source='get_type_display', read_only=True)
     cousine = serializers.CharField(source='get_cousine_display', read_only=True)
     tables = TableSerializer(many=True)
 
     class Meta:
         model = FoodEstablishment
-        fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
-                  'email', 'type', 'working_hours', 'tables', 'full_title']
+        fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location', 'email',
+                  'working_hours', 'tables', 'full_title']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
@@ -64,6 +63,7 @@ class GuestFoodEstablishmentM2MSerializer(serializers.ModelSerializer):
 
 class ReservationSerializer(serializers.ModelSerializer):
     guest_food_establishment = GuestFoodEstablishmentM2MSerializer()
+    table = TableSerializer()
 
     class Meta:
         model = Reservation

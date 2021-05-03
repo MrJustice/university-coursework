@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home.vue'
 import About from '../components/About.vue'
+import LogIn from '../components/LogIn.vue'
 import RestaurantList from '../components/RestaurantList.vue'
 import RestaurantDetails from '../components/RestaurantDetails.vue'
 import ReservationHistory from '../components/ReservationHistory.vue'
@@ -19,6 +20,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/login',
+      name: 'LogIn',
+      component: LogIn
     },
     {
       path: '/history',

@@ -1,7 +1,7 @@
 <template>
   <div class="popup_wrapper" ref="popup_wrapper">
     <v-card class="glass column is-4-desktop is-7-mobile has-text-white">
-      <v-card-title class="is-size-3 is-flex is-justify-content-center">{{ restaurant_data.type + ' "' + restaurant_data.title + '"' }}</v-card-title>
+      <v-card-title class="is-size-3 is-flex is-justify-content-center">{{ restaurant_data.full_title }}</v-card-title>
       <v-card-text class="pb-0">
         <div class="columns">
           <div class="column">
@@ -172,7 +172,7 @@ export default {
     reserve() {
       let guestData = {'name': this.guestName, 'phone': this.guestPhone,
                        'numberOfPersons': this.guestPersons, 'date': this.guestDate,
-                       'time': this.guestTime, 'table': this.guestTable.number,
+                       'time': this.guestTime, 'table': this.guestTable.id,
                        'restaurant': this.restaurant_data.id}
       this.axios
           .post("/api/reserve/", guestData)

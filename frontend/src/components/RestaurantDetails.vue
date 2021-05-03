@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="data__title is-flex is-size-3 pl-9 mb-1">
-      {{ restaurantData.type + ' "' + restaurantData.title + '"'}}
+      {{ restaurantData.full_title }}
     </div>
     <v-img height="308" contain :src="require('../assets/home_image.png')"/>
     <v-container class="mt-3">

@@ -28,10 +28,10 @@
       </thead>
       <tbody>
         <tr v-for="(reservation, index) in history" :key="reservation.id">
-          <td>{{index+1}}</td>
-          <td>{{reservation.guest_food_establishment.food_establishment.full_title}}</td>
-          <td>{{formatDate(reservation.start_date)}}</td>
-          <td>{{reservation.table}}</td>
+          <td>{{ index+1 }}</td>
+          <td>{{ reservation.guest_food_establishment.food_establishment.full_title }}</td>
+          <td>{{ formatDate(reservation.start_date) }}</td>
+          <td>{{ reservation.table.number }}</td>
         </tr>
       </tbody>
     </table>
@@ -51,9 +51,7 @@ export default {
     getHistory() {
       let image = document.getElementById("main-image")
       let table = document.getElementById("main-table")
-      // let paragraph = document.getElementById("main-p")
       image.classList.add('hidden')
-      // paragraph.classList.add('move-top')
       this.axios
           .post("/api/guest-history/", {'phone': this.guestPhone})
           .then(responce => {

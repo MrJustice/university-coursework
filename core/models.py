@@ -126,7 +126,7 @@ class Reservation(models.Model):
     guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
     number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
     start_date = models.DateTimeField('Дата и время брони')
-    table = models.PositiveSmallIntegerField('Номер стола', **BLANK_NULL)
+    table = models.ForeignKey(Table, on_delete=models.SET_NULL, **BLANK_NULL)
 
     def __str__(self):
         return str(self.guest_food_establishment) + ' в ' + self.start_date.strftime('%H:%M')

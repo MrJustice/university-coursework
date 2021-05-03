@@ -79,6 +79,7 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         guest_dt = datetime.datetime.strptime(
             guest_date + " " + guest_time, "%Y-%m-%d %H:%M").replace(tzinfo=datetime.timezone.utc)
 
+        table = models.Table.objects.get(id=guest_table)
         restaurant = models.FoodEstablishment.objects.get(id=request.data.get('restaurant'))
         guest = models.Guest.objects.get_or_create(first_name=guest_name, phone=guest_phone)[0]
         
@@ -98,7 +99,7 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
             guest_food_establishment=m2m,
             number_of_persons=number_of_persons,
             start_date=guest_dt,
-            table=guest_table
+            table=table
         )
         return Response(status=status.HTTP_200_OK)
 
