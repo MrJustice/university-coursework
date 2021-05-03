@@ -20,7 +20,7 @@ const store = new Vuex.Store({
         state.isAuthenticated = true
       } else {
         state.token = ''
-        state.isAuthenticated = true
+        state.isAuthenticated = false
       }
     },
     SET_ISLOADING(state, status) {

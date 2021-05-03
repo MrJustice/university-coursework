@@ -15,12 +15,20 @@
             <router-link :to="'/'">
               <a class="navbar-item has-text-black" href="#">Главная</a>
             </router-link>
-            <router-link :to="'History'">
-              <a class="navbar-item has-text-black" href="#">История</a>
-            </router-link>
+
+            <template v-if="!$store.state.isAuthenticated">
+              <router-link :to="'History'">
+                <a class="navbar-item has-text-black" href="#">История</a>
+              </router-link>
+            </template>
+
             <router-link :to="'About'">
               <a class="navbar-item has-text-black" href="#">О нас</a>
             </router-link>
+
+            <v-btn class="mt-3 ml-2" color="error" v-if="$store.state.isAuthenticated" @click="logout" outlined small fab>
+              <v-icon>mdi-logout</v-icon>
+            </v-btn>
           </div>
         </div>
       </div>
@@ -39,6 +47,18 @@
 export default {
   name: "app",
   data: () => ({}),
+  methods: {
+    logout() {
+      this.axios.defaults.headers.common["Authorization"] = ""
+
+      localStorage.removeItem("token")
+      localStorage.removeItem("username")
+      localStorage.removeItem("userid")
+
+      this.$store.commit("REMOVE_TOKEN")
+      this.$router.push("/")
+    }
+  },
   beforeCreate() {
     this.$store.commit('INITIALIZE_STORE')
     
