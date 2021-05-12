@@ -190,11 +190,10 @@ export default {
           .catch(error => {})
     },
     getReservations() {
+      let params = {"restaurantId": this.restaurant_data.id}
       this.axios
-          .get("/api/get-restaurant-reservations/", {params: this.restaurant_data.id})
-          .then(responce => {
-            this.allReservations = responce.data
-          })
+          .get("/api/get-restaurant-reservations/", {params: params})
+          .then(responce => this.allReservations = responce.data)
           .catch(error => {})
     },
     getLockedTables() {

@@ -2,7 +2,7 @@
   <v-container class="text-xs-center">
     <v-card flat>
       <v-card-title primary-title>
-        <h4>Вход</h4>
+        <h2 style="margin: 0 auto;">Вход</h2>
       </v-card-title>
       <v-form>
         <v-text-field

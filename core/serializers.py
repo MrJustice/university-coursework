@@ -28,8 +28,8 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodEstablishment
-        fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location', 'email',
-                  'working_hours', 'tables', 'full_title']
+        fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
+                  'email', 'working_hours', 'tables', 'full_title']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
@@ -40,10 +40,12 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
 
 class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
     cousine = serializers.CharField(source='get_cousine_display', read_only=True)
+    tables = TableSerializer(many=True)
 
     class Meta:
         model = FoodEstablishment
-        fields = ['id', 'cousine', 'average_check', 'location', 'rating', 'phone', 'working_hours', 'full_title']
+        fields = ['id', 'cousine', 'average_check', 'location', 'rating', 'phone', 'working_hours', 'full_title',
+                  'tables']
 
     def get_working_hours(self, obj):
         return self.get_working_hours

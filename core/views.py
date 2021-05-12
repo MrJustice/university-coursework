@@ -105,11 +105,20 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
 
     @staticmethod
     @api_view(['GET'])
-    def get_all_reservations(request):
-        id = request.GET['0']
+    def get_reservations(request):
+        user = request.user
+        id = models.FoodEstablishment.objects.values('id').get(owner=user)['id']
         reservations = models.Reservation.objects.filter(guest_food_establishment__food_establishment__id=id)
         serializer = serializers.ReservationSerializer(reservations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_restaurant_reservations(request):
+    id = request.GET["restaurantId"]
+    reservations = models.Reservation.objects.filter(guest_food_establishment__food_establishment__id=id)
+    serializer = serializers.ReservationSerializer(reservations, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
