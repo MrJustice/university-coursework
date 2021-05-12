@@ -1,5 +1,5 @@
 <template>
-  <!-- <v-container>
+  <v-container>
     <v-img height="308" contain :src="require('../assets/home_image.png')"/>
     <v-container class="search_layout">
       <search-bar @sendAllData="getDataFromSearchBar"></search-bar>
@@ -19,55 +19,42 @@
           ></home-restaurant-list-item>
       </div>
     </v-container>
-  </v-container> -->
-  <component :is="view"></component>
+  </v-container>
 </template>
 
 <script>
-// import SearchBar from './SearchBar.vue';
-// import HomeRestaurantListItem from './HomeRestaurantListItem.vue'
-
-// export default {
-//   name: 'Home',
-//   components: { SearchBar, HomeRestaurantListItem },
-//   data() {
-//     return {
-//       restaurants: {},
-//       searchData: '',
-//     }
-//   },
-//   methods: {
-//     getHighRatedRestaurants() {
-//       this.axios
-//         .get('api/get-high-rated/')
-//         .then(response => this.restaurants = response.data)
-//         .catch(error => console.log("Connection lost"))
-//     },
-//     getDataFromSearchBar(data) {
-//       return this.searchData = data
-//     },
-//   },
-//   mounted() {
-//     document.title = 'Home | TR'
-//     this.getHighRatedRestaurants();
-//   }
-// };
-import HomeAuth from './HomeAuth.vue';
-import HomeGuest from './HomeGuest.vue'
+import SearchBar from './SearchBar.vue';
+import HomeRestaurantListItem from './HomeRestaurantListItem.vue'
 
 export default {
-  name: "Home",
-  components: { HomeAuth , HomeGuest },
-  computed: {
-    view() {
-      return this.$store.state.isAuthenticated ? HomeAuth : HomeGuest
+  name: 'HomeGuest',
+  components: { SearchBar, HomeRestaurantListItem },
+  data() {
+    return {
+      restaurants: {},
+      searchData: '',
     }
+  },
+  methods: {
+    getHighRatedRestaurants() {
+      this.axios
+        .get('api/get-high-rated/')
+        .then(response => this.restaurants = response.data)
+        .catch(error => console.log("Connection lost"))
+    },
+    getDataFromSearchBar(data) {
+      return this.searchData = data
+    },
+  },
+  mounted() {
+    document.title = 'Home | TR'
+    this.getHighRatedRestaurants();
   }
-}
+};
 </script>
 
 <style scoped>
-/* .search_layout {
+.search_layout {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,5 +63,5 @@ export default {
 
 .find {
   margin: 0.5% auto 0;
-} */
+}
 </style>
