@@ -171,6 +171,12 @@ export default {
 
       return freeHours
     },
+    possibleTables() {
+      let freeTables = []
+      for (let i  = 0; i < this.allReservations.length; i++) {
+
+      }
+    },
     computedDateFormatted() {
       return this.formatDate(this.guestDate)
     }
@@ -202,9 +208,6 @@ export default {
           .get("/api/get-restaurant-reservations/", {params: params})
           .then(responce => this.allReservations = responce.data)
           .catch(error => {})
-    },
-    getLockedTables() {
-      
     },
     closePopup() {
       this.$emit('closePopup');

@@ -29,7 +29,7 @@ class FoodEstablishmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
-                  'email', 'working_hours', 'tables', 'full_title']
+                  'email', 'working_hours', 'tables', 'full_title', 'reservation_time']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
@@ -45,7 +45,7 @@ class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'cousine', 'average_check', 'location', 'rating', 'phone', 'working_hours', 'full_title',
-                  'tables']
+                  'tables', 'reservation_time']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
