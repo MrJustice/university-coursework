@@ -54,6 +54,15 @@ class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
         return self.full_title
 
 
+class FoodEstablishmentSearchBarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodEstablishment
+        fields = ['id', 'title', 'full_title']
+
+    def get_full_title(self, obj):
+        return self.full_title
+
+
 class GuestFoodEstablishmentM2MSerializer(serializers.ModelSerializer):
     guest = GuestSerializer()
     food_establishment = FoodEstablishmentSerializer()

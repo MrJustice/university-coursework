@@ -161,13 +161,13 @@ export default {
         this.fetchItems();
       }
     },
-    restaurantCousineList:{
+    restaurantCousineList: {
       deep: true,
       handler() {
         this.fetchItems();
       }
     },
-    restaurantPriceList:{
+    restaurantPriceList: {
       deep: true,
       handler() {
         this.fetchItems();

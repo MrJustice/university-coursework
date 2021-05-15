@@ -11,7 +11,7 @@
           </a>
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-end pt-1">
+          <div class="navbar-end pt-3">
             <router-link :to="'/'">
               <a class="navbar-item has-text-black" href="#">Главная</a>
             </router-link>
@@ -87,15 +87,19 @@ export default {
 }
 
 nav.navbar {
-  font-size: 30px;
-  height: 5.5rem;
+  font-size: 26px;
+  // text-transform: uppercase;
+  height: 5rem;
 }
 
 .navbar-brand a:first-of-type {
-  background: url("assets/logo.png") center;
+  background: url("assets/fork.png") center;
   background-size: contain;
   background-repeat: no-repeat;
-  width: 125px;
+  width: 110px;
+  height: 110px;
+  position: absolute;
+  top: 0;
 }
 
 .slide-fade-enter-active {

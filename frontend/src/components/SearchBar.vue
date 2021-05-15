@@ -38,7 +38,6 @@
         prepend-inner-icon="query_builder"
         autocomplete
         placeholder="Время"
-        @change="sendData"
       ></v-select>
     </div>
     <div class="est-person">
@@ -49,20 +48,22 @@
         prepend-inner-icon="people"
         autocomplete
         placeholder="Кол-во человек"
-        @change="sendData"
       ></v-select>
     </div>
     <div class="est-name">
-      <v-text-field
-        class="mt-0 pt-1 mx-1"
-        v-model="search_by_name"
+      <v-autocomplete
         label="Поиск по названию"
         prepend-inner-icon="search"
+        v-model="search_by_name"
+        :items="restaurants"
+        item-text="title"
+        item-value="id"
         single-line
         hide-details
-        autocomplete
-        @change="sendData"
-      ></v-text-field>
+        hide-selected
+        clearable
+        class="mt-0 pt-1 mx-1"
+      ></v-autocomplete>
     </div>
   </div>
 </template>
@@ -79,6 +80,7 @@ export default {
                     '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
                     '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
       personChoices: ['1','2','3','4','5+',],
+      restaurants: [],
     }
   },
   computed: {
@@ -119,16 +121,21 @@ export default {
     }
   },
   methods: {
+    getRestaurants() {
+      this.axios
+          .get('api/restaurants-for-search/')
+          .then(responce => this.restaurants = responce.data)
+          .catch(error => {})
+    },
     formatDate(date) {
       if (!date) return null
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
     },
-    sendData() {
-      this.$emit('sendAllData', [this.search_by_date, this.search_by_time,
-                                 this.search_by_number_of_persons, this.search_by_name])
-    },
   },
+  mounted() {
+    this.getRestaurants();
+  }
 };
 </script>
 
