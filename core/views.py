@@ -76,6 +76,7 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         guest_table = request.data.get("table")
         guest_date = request.data.get("date")
         guest_time = request.data.get("time")
+        guest_comment = request.data.get("comment")
         guest_dt = datetime.datetime.strptime(
             guest_date + " " + guest_time, "%Y-%m-%d %H:%M").replace(tzinfo=datetime.timezone.utc)
 
@@ -99,7 +100,8 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
             guest_food_establishment=m2m,
             number_of_persons=number_of_persons,
             start_date=guest_dt,
-            table=table
+            table=table,
+            comment=guest_comment
         )
         return Response(status=status.HTTP_200_OK)
 

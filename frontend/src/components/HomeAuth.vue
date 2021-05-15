@@ -22,6 +22,7 @@
           <td class="has-text-centered pr-8" v-if="item.table">{{ item.table.number }}</td>
           <td class="has-text-centered pr-8" v-else></td>
           <td class="has-text-centered pr-8">{{ item.number_of_persons }}</td>
+          <td>{{ item.comment }}</td>
           <td>
             <v-icon class="ml-2" @click="editItem(item)">
               mdi-pencil
@@ -78,6 +79,12 @@ export default {
           text: 'Колв-во человек',
           sortable: true,
           value: 'number_of_persons'
+        },
+        {
+          align: 'center',
+          text: 'Комментарий',
+          sortable: true,
+          value: 'comment'
         },
         {
           align: 'left',

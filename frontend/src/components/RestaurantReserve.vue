@@ -89,6 +89,12 @@
                   v-for="time in possibleTimeChoices" :key="time" :value="time"
           >{{time}}</v-chip>
         </v-chip-group>
+        <v-text-field
+          v-model="guestComment"
+          label="Комментарий..."
+          hide-details="auto"
+          dark
+        ></v-text-field>
       </v-card-text>
       <v-card-actions class="is-flex is-justify-content-space-between px-4">
         <button class="button is-danger is-rounded has-text-weight-semibold is-small has-text-black"
@@ -126,6 +132,7 @@ export default {
       guestPersons: this.$store.state.search_by_number_of_persons,
       guestTime: null,
       guestTable: null,
+      guestComment: '',
       menu: false,
       guestDate: this.$store.state.search_by_date,
       timeChoices: ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', 
@@ -173,12 +180,12 @@ export default {
       let guestData = {'name': this.guestName, 'phone': this.guestPhone,
                        'numberOfPersons': this.guestPersons, 'date': this.guestDate,
                        'time': this.guestTime, 'table': this.guestTable.id,
-                       'restaurant': this.restaurant_data.id}
+                       'comment': this.guestComment, 'restaurant': this.restaurant_data.id}
       this.axios
           .post("/api/reserve/", guestData)
           .then(responce => {
             toast({
-              message: 'Бронирование завершено!',
+              message: 'Столик успешно забронирован!',
               type: 'is-success',
               dismissible: true,
               pauseOnHover: true,
