@@ -27,24 +27,24 @@ class FoodEstablishment(models.Model):
     CHINA = 'CN'
     KOREA = 'KR'
 
-    COUSINE_CHOICES = [
+    COUSINE_CHOICES = (
         (BELARUS, 'Национальная'),
         (RUSSIA, 'Русская'),
         (FRANCE, 'Французская'),
         (ITALY, 'Итальянская'),
         (CHINA, 'Китайская'),
         (KOREA, 'Корейская')
-    ]
+    )
 
     BAR = 'B'
     CAFE = 'C'
     RESTAURANT = 'R'
 
-    TYPE_CHOICES = [
+    TYPE_CHOICES = (
         (BAR, 'Бар'),
         (CAFE, 'Кафе'),
         (RESTAURANT, 'Ресторан')
-    ]
+    )
 
     owner = models.ForeignKey(User, related_name='food_establishments', on_delete=models.PROTECT)
     title = models.CharField('Название', max_length=128, unique=True)
@@ -123,10 +123,21 @@ class Reservation(models.Model):
     """
     Reservations
     """
+    ACTIVE = 'ACT'
+    COMPLETED = 'COM'
+    CANCELED = 'CAN'
+
+    STATUS_CHOICES = (
+        (ACTIVE, 'Активна'),
+        (COMPLETED, 'Завершена'),
+        (CANCELED, 'Отменена')
+    )
     guest_food_establishment = models.ForeignKey(GuestFoodEstablishmentM2M, on_delete=models.CASCADE)
     number_of_persons = models.PositiveSmallIntegerField('Количество персон', **BLANK_NULL)
     start_date = models.DateTimeField('Дата и время брони')
     table = models.ForeignKey(Table, on_delete=models.SET_NULL, **BLANK_NULL)
+    comment = models.CharField('Комментарий', max_length=250, **BLANK_NULL)
+    status = models.CharField('Статус', max_length=3, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
 
     def __str__(self):
         return str(self.guest_food_establishment) + ' в ' + self.start_date.strftime('%H:%M')
