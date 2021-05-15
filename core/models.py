@@ -57,6 +57,7 @@ class FoodEstablishment(models.Model):
     location = models.CharField(max_length=128, blank=True)
     opening_time = models.CharField(max_length=5, blank=True)
     closing_time = models.CharField(max_length=5, blank=True)
+    reservation_time = models.PositiveSmallIntegerField('Время бронирования', **BLANK_NULL)
     email = models.EmailField('Адрес электронной почты', max_length=128, **BLANK_NULL)
     big_image = models.ImageField('Логотип', **BLANK_NULL)
     preview_image = models.ImageField('Превью', **BLANK_NULL)
