@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 
+from twilio.rest import Client
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -12,6 +13,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import BasicAuthentication
 
 from . import models, serializers
+
+
+ACCOUNT_SID = "AC37181f14eefac1acf38eb2011a760421"
+AUTH_TOKEN = "10f92f4e0711560535e8d41520950a69"
+client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 
 class FoodEstablishmentViewSet(viewsets.ViewSet):
@@ -150,9 +156,9 @@ def get_restaurant_reservations(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
+@api_view(["GET"])
 def guest_history(request):
-    guest_phone = request.data.get("phone")
+    guest_phone = request.GET["phone"]
     reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone=guest_phone)
     serializer = serializers.ReservationSerializer(reservations, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)

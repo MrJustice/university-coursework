@@ -47,8 +47,9 @@ export default {
   },
   methods: {
     getHistory() {
+      let params = {"phone": this.guestPhone}
       this.axios
-          .post("/api/guest-history/", {'phone': this.guestPhone})
+          .get("/api/guest-history/", {params: params})
           .then(responce => {
             this.history = responce.data
           })
