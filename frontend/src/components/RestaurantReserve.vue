@@ -189,7 +189,7 @@ export default {
                        'comment': this.guestComment, 'restaurant': this.restaurant_data.id}
       this.axios
           .post("/api/reserve/", guestData)
-          .then(responce => {
+          .then(response => {
             toast({
               message: 'Столик успешно забронирован!',
               type: 'is-success',

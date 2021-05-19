@@ -16,4 +16,6 @@ urlpatterns = [
     url('guest-history/', views.guest_history, name='guest_history'),
     url('get-restaurant-reservations/', views.get_restaurant_reservations, name='get_restaurant_reservations'),
     url('restaurants-for-search/', views.get_restaurants_for_search, name='get_restaurants_for_search'),
+    url('finish-reservation/', views.FoodEstablishmentViewSet.finish_reservation, name='finish_reservation'),
+    url('cancel-reservation/', views.FoodEstablishmentViewSet.cancel_reservation, name='cancel_reservation'),
 ]
