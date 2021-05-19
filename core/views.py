@@ -135,12 +135,12 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_200_OK)
 
 
-
 @api_view(["GET"])
 def get_restaurants_for_search(request):
     rests = models.FoodEstablishment.objects.all().order_by("title")
     serializer = serializers.FoodEstablishmentSearchBarSerializer(rests, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(["GET"])
 def get_restaurant_reservations(request):
