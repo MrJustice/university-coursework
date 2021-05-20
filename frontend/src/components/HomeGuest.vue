@@ -2,9 +2,8 @@
   <v-container>
     <v-img height="308" contain :src="require('../assets/home_image.png')"/>
     <v-container class="search_layout">
-      <search-bar @sendAllData="getDataFromSearchBar"></search-bar>
-      <router-link :to="{name: 'RestaurantList', params: {date: searchData[0], time: searchData[1], 
-                                                          person: searchData[2], name: searchData[3]}}">
+      <search-bar></search-bar>
+      <router-link :to="{name: 'RestaurantList'}">
         <button class="find button is-primary is-outlined has-text-weight-semibold">Поиск</button>
       </router-link>
     </v-container>
@@ -32,7 +31,6 @@ export default {
   data() {
     return {
       restaurants: {},
-      searchData: '',
     }
   },
   methods: {
@@ -41,9 +39,6 @@ export default {
         .get('api/get-high-rated/')
         .then(response => this.restaurants = response.data)
         .catch(error => console.log("Connection lost"))
-    },
-    getDataFromSearchBar(data) {
-      return this.searchData = data
     },
   },
   mounted() {

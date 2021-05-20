@@ -1,12 +1,8 @@
 <template>
   <v-container>
-    <v-container class="search_layout">
-      <search-bar :search_by_date="searchData['date']"
-                  :search_by_time="searchData['time']"
-                  :search_by_number_of_persons="searchData['person']"
-                  :search_by_name="searchData['name']"
-      ></search-bar>
-      <!-- <search-bar></search-bar> -->
+    <v-container class="search_layout my-1">
+      <search-bar></search-bar>
+      <button id="search" class="find button is-primary is-outlined has-text-weight-semibold">Поиск</button>
     </v-container>
     <v-divider class="mt-0"></v-divider>
     <div class="columns">
@@ -153,6 +149,15 @@ export default {
         .then(response => this.items = response.data)
         .catch(error => {});
     },
+    findBySearchBar() {
+      let params = {
+        'filter_by_date': this.$store.state.search_by_date,
+        'filter_by_time': this.$store.state.search_by_time,
+        'filter_by_persons': this.$store.state.search_by_number_of_persons,
+        'filter_by_name': this.$store.state.search_by_name
+      }
+      console.log(params)
+    },
   },
   watch: {
     restaurantTypeList: {
@@ -184,16 +189,24 @@ export default {
 <style scoped>
 .search_layout {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 2% auto;
+  align-content: center;
+  justify-content: center;
 }
+
+#search {
+  margin-left: 3%;
+  margin-bottom: 23.5px;
+}
+
 .v-list {
   padding-top: 0;
 }
+
 .v-list-item {
   min-height: 38px;
 }
+
 .v-list-item .v-input {
   margin-top: 0px;
 }
