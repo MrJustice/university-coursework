@@ -4,8 +4,10 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 import Vue from 'vue'
 import App from './App.vue'
+
 import ElementUI from 'element-ui';
 import vuetify from './plugins/vuetify';
+// import { VueMaskDirective } from 'v-mask'
 // import VueExpandableImage from 'vue-expandable-image'
 // var VueExpandableImage = require('vue-expandable-image')
 
@@ -19,6 +21,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
+// Vue.directive('mask', VueMaskDirective);
 // Vue.use(VueExpandableImage)
 
 new Vue({

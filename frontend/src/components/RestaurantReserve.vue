@@ -14,8 +14,10 @@
             <v-text-field
               v-model="guestPhone"
               label="Номер телефона"
-              placeholder="+375290000000"
+              placeholder="+375291234567"
               hide-details="auto"
+              v-phone
+              mask="[(][0-9]{2}[)] [0-9]{3}-[0-9]{2}-[0-9]{2}"
               dark
             ></v-text-field>
             <div class="is-flex is-justify-content-space-between is-flex-direction-column has-text-white pl-0 pt-5">
@@ -117,6 +119,18 @@ import { toast } from 'bulma-toast'
 
 export default {
   name: 'RestaurantReserve',
+  directives: {
+    phone: {
+      bind: function(el, binding, vnode) {
+        if (!el.isTrusted) {
+          return;
+        }
+        const x = binding.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        binding.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+        el.dispatchEvent(new Event('input'));
+      }
+    },
+  },
   props: {
     restaurant_data: {
       type: Object,
@@ -179,7 +193,6 @@ export default {
         let startIndex = this.possibleTimeChoices.indexOf(this.getTime(this.allReservations[i].start_date))
         let step = this.restaurant_data.reservation_time == 1 ? this.restaurant_data.reservation_time : this.restaurant_data.reservation_time*2-1
         let lockedRange = this.possibleTimeChoices.slice(startIndex, startIndex + step + 1)
-        console.log(lockedRange)
         if (lockedRange.includes(this.guestTime)) {
           for (let j = 0; j < freeTables.length; j++) {
             if (freeTables[j].id == this.allReservations[i].table.id) {
