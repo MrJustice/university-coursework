@@ -151,7 +151,10 @@ def get_restaurants_for_search(request):
 @api_view(["GET"])
 def get_restaurant_reservations(request):
     id = request.GET["restaurantId"]
-    reservations = models.Reservation.objects.filter(guest_food_establishment__food_establishment__id=id)
+    date = request.GET["date"]
+    reservations = models.Reservation.objects.filter(
+        Q(guest_food_establishment__food_establishment__id=id) & Q(start_date__date=date)
+    )
     serializer = serializers.ReservationSerializer(reservations, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 

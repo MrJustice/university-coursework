@@ -14,6 +14,7 @@
             <v-text-field
               v-model="guestPhone"
               label="Номер телефона"
+              placeholder="+375290000000"
               hide-details="auto"
               dark
             ></v-text-field>
@@ -44,6 +45,7 @@
                     locale="ru"
                     v-model="guestDate"
                     @input="menu = false"
+                    @change="getReservations"
                     :first-day-of-week="1"
                     dark
                   ></v-date-picker>
@@ -65,7 +67,7 @@
             <div class="is-flex is-flex-direction-column">
               <v-select
                 label="Выберите столик"
-                :items="restaurant_data.tables"
+                :items="possibleTables"
                 item-text="number"
                 return-object
                 dark
@@ -172,10 +174,21 @@ export default {
       return freeHours
     },
     possibleTables() {
-      let freeTables = []
-      for (let i  = 0; i < this.allReservations.length; i++) {
-
+      let freeTables = this.restaurant_data.tables.slice()
+      for (let i = 0; i < this.allReservations.length; i++) {
+        let startIndex = this.possibleTimeChoices.indexOf(this.getTime(this.allReservations[i].start_date))
+        let step = this.restaurant_data.reservation_time == 1 ? this.restaurant_data.reservation_time : this.restaurant_data.reservation_time*2-1
+        let lockedRange = this.possibleTimeChoices.slice(startIndex, startIndex + step + 1)
+        console.log(lockedRange)
+        if (lockedRange.includes(this.guestTime)) {
+          for (let j = 0; j < freeTables.length; j++) {
+            if (freeTables[j].id == this.allReservations[i].table.id) {
+              freeTables.splice(j, 1)
+            }
+          }
+        }
       }
+      return freeTables
     },
     computedDateFormatted() {
       return this.formatDate(this.guestDate)
@@ -203,7 +216,7 @@ export default {
           .catch(error => {})
     },
     getReservations() {
-      let params = {"restaurantId": this.restaurant_data.id}
+      let params = {"restaurantId": this.restaurant_data.id, "date": this.guestDate}
       this.axios
           .get("/api/get-restaurant-reservations/", {params: params})
           .then(responce => this.allReservations = responce.data)
@@ -217,6 +230,10 @@ export default {
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
     },
+    getTime(time) {
+      if (!time) return null
+      return time.slice(time.indexOf("T")+1, time.indexOf("T")+6)
+    }
   },
   mounted() {
     let vm = this;
