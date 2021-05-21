@@ -173,7 +173,6 @@ def guest_history(request):
     guest_phone = request.GET["phone"]
     verification_code = request.GET["verificationCode"]
     result = service.verification_checks.create(to=guest_phone, code=verification_code)
-    print(result.status)
     if result.status == "approved":
         reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone=guest_phone)
         serializer = serializers.ReservationSerializer(reservations, many=True)

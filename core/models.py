@@ -142,10 +142,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return str(self.guest_food_establishment) + ' в ' + self.start_date.strftime('%H:%M')
-
-
-# class ReservedTable(models.Model):
-#     """
-#     """
-#     table = models.OneToOneField(Table, on_delete=models.CASCADE)
-#     reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE)
