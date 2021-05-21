@@ -9,7 +9,7 @@
       v-model="guestPhone"
       label="Номер телефона"
       hide-details="auto"
-      @keyup.enter="getHistory()"
+      @keyup.enter="showCodeVerificationPopup()"
     ></v-text-field>
     <table v-if="history" id="main-table" class="table is-striped is-hoverable mt-8 hidden" style="width: 90%; margin: 0 auto">
       <thead>
@@ -33,32 +33,72 @@
         </tr>
       </tbody>
     </table>
+    <verification-code-modal 
+      v-if="isPopupVisible" 
+      :guestPhone="guestPhone"
+      @verify="getHistory"
+      @closePopup="closeCodeVerificationPopup">
+    </verification-code-modal>
   </v-container>
 </template>
 
 <script>
+import { toast } from 'bulma-toast'
+import VerificationCodeModal from './VerificationCodeModal.vue';
+
 export default {
   name: "ReservationHistory",
+  components: {
+    VerificationCodeModal,
+  },
   data() {
     return {
+      isPopupVisible: false,
       guestPhone: null,
       history: null,
     }
   },
   methods: {
-    getHistory() {
+    sendVerificationCode() {
       let params = {"phone": this.guestPhone}
+      this.axios
+          .get("/api/send-sms-code/", {params: params})
+          .then(responce => {})
+          .catch(error => {})
+    },
+    getHistory(phone, code) {
+      console.log(phone)
+      console.log(code)
+      let params = {"phone": phone, "verificationCode": code}
       this.axios
           .get("/api/guest-history/", {params: params})
           .then(responce => {
             this.history = responce.data
           })
-          .catch(error => {})
+          .catch(error => {
+            if (error.response) {
+              toast({
+                message: 'Неверный код',
+                type: 'is-danger',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 3000,
+                position: 'bottom-right'
+            })
+            }
+          })
     },
     formatDate(datetime) {
       let date = new Date(datetime)
       return date.toLocaleString("ru-RU", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'})
     },
+    showCodeVerificationPopup() {
+      this.sendVerificationCode()
+      this.isPopupVisible = true;
+    },
+    closeCodeVerificationPopup() {
+      this.isPopupVisible = false;
+    }
   },
   mounted() {
     document.title = 'History | TR'

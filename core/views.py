@@ -18,6 +18,7 @@ from . import models, serializers
 ACCOUNT_SID = "AC37181f14eefac1acf38eb2011a760421"
 AUTH_TOKEN = "10f92f4e0711560535e8d41520950a69"
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
+service = client.verify.services.create(friendly_name="SMS verification service")
 
 
 class FoodEstablishmentViewSet(viewsets.ViewSet):
@@ -109,6 +110,7 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
             table=table,
             comment=guest_comment
         )
+
         return Response(status=status.HTTP_200_OK)
 
     @staticmethod
@@ -160,8 +162,20 @@ def get_restaurant_reservations(request):
 
 
 @api_view(["GET"])
+def send_sms_code(request):
+    guest_phone = request.GET["phone"]
+    service.verifications.create(to=guest_phone, channel='sms')
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
 def guest_history(request):
     guest_phone = request.GET["phone"]
-    reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone=guest_phone)
-    serializer = serializers.ReservationSerializer(reservations, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    verification_code = request.GET["verificationCode"]
+    result = service.verification_checks.create(to=guest_phone, code=verification_code)
+    print(result.status)
+    if result.status == "approved":
+        reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone=guest_phone)
+        serializer = serializers.ReservationSerializer(reservations, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_403_FORBIDDEN)

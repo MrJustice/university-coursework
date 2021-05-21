@@ -18,4 +18,5 @@ urlpatterns = [
     url('restaurants-for-search/', views.get_restaurants_for_search, name='get_restaurants_for_search'),
     url('finish-reservation/', views.FoodEstablishmentViewSet.finish_reservation, name='finish_reservation'),
     url('cancel-reservation/', views.FoodEstablishmentViewSet.cancel_reservation, name='cancel_reservation'),
+    url('send-sms-code/', views.send_sms_code, name='send_sms_code'),
 ]
