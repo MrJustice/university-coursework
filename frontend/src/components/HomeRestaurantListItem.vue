@@ -5,28 +5,29 @@
         height="105"
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
       ></v-img>
-      <v-card-title class="s-flex is-justify-content-space-between">
+      <v-card-title class="s-flex is-justify-content-space-between is-size-5 pb-2">
         {{ restaurant_data.full_title }}
-        <div>
-          <v-rating
-            v-model="restaurantRating"
-            dense
-            medium
-            readonly
-            half-increments
-            fullIcon="star"
-            halfIcon="star_half"
-            emptyIcon="star_outline"
-            color="yellow darken-4"
-            background-color="grey darken-1"
-          ></v-rating>
-        </div>
       </v-card-title>
-      <v-card-text class="card-text is-flex is-justify-content-space-between is-size-6">
-        <div class="has-text-left">
-          {{ restaurant_data.cousine }} кухня <br />Средний чек:&nbsp;{{restaurant_data.average_check}}руб.
+      <v-card-text class="columns is-multiline card-text is-size-6 pr-0 pb-0">
+        <div class="column has-text-left is-7 pb-0">
+          {{ restaurant_data.cousine }} кухня
+          <br /> Средний чек:&nbsp;{{restaurant_data.average_check}}руб.
+          <div>
+            <v-rating
+              v-model="restaurantRating"
+              dense
+              medium
+              readonly
+              half-increments
+              fullIcon="star"
+              halfIcon="star_half"
+              emptyIcon="star_outline"
+              color="yellow darken-4"
+              background-color="grey darken-1"
+            ></v-rating>
+          </div>
         </div>
-        <div class="has-text-right">
+        <div class="column has-text-right is-5 pr-2 pb-0">
           {{ restaurant_data.phone }}
           <br />{{ restaurant_data.location }}
         </div>

@@ -26,6 +26,7 @@ class FoodEstablishment(models.Model):
     ITALY = 'I'
     CHINA = 'CN'
     KOREA = 'KR'
+    PANASIAN = 'PA'
 
     COUSINE_CHOICES = (
         (BELARUS, 'Национальная'),
@@ -33,7 +34,8 @@ class FoodEstablishment(models.Model):
         (FRANCE, 'Французская'),
         (ITALY, 'Итальянская'),
         (CHINA, 'Китайская'),
-        (KOREA, 'Корейская')
+        (KOREA, 'Корейская'),
+        (PANASIAN, 'Паназиатская'),
     )
 
     BAR = 'B'
@@ -48,7 +50,7 @@ class FoodEstablishment(models.Model):
 
     owner = models.ForeignKey(User, related_name='food_establishments', on_delete=models.PROTECT)
     title = models.CharField('Название', max_length=128, unique=True)
-    description = models.CharField('Описание', max_length=1000, **BLANK_NULL)
+    description = models.CharField('Описание', max_length=5000, **BLANK_NULL)
     type = models.CharField('Тип заведения', max_length=1, choices=TYPE_CHOICES, default=TYPE_CHOICES[1][0])
     cousine = models.CharField('Кухня', max_length=2, choices=COUSINE_CHOICES, default=COUSINE_CHOICES[0][0])
     average_check = models.PositiveSmallIntegerField('Средний чек', **BLANK_NULL)
