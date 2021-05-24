@@ -3,7 +3,7 @@
     <div class="column is-3">
       <v-img style="border: 2px solid #000000;"
         height="98%"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+        :src="restaurant_data.preview_image"
       ></v-img>
     </div>
     <div class="column is-9">

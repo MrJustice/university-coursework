@@ -1,9 +1,10 @@
 <template>
   <div class="column">
     <v-card>
-      <v-img
-        height="105"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      <v-img 
+        max-height="105"
+        max-width="408"
+        :src="restaurant_data.preview_image"
       ></v-img>
       <v-card-title class="s-flex is-justify-content-space-between is-size-5 pb-2">
         {{ restaurant_data.full_title }}
