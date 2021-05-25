@@ -69,7 +69,7 @@
               <v-select
                 label="Выберите столик"
                 :items="possibleTables"
-                item-text="number"
+                :item-text="tableText"
                 return-object
                 dark
                 v-model="guestTable"
@@ -234,6 +234,12 @@ export default {
     getTime(time) {
       if (!time) return null
       return time.slice(time.indexOf("T")+1, time.indexOf("T")+6)
+    },
+    tableText(item) {
+      if (item.smoke)
+        return 'Столик ' + item.number
+      else
+        return 'Столик ' + item.number + ' (для некурящих)'
     }
   },
   mounted() {
