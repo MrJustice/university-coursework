@@ -75,7 +75,7 @@
                 v-model="guestTable"
                 :clearable="true"
               ></v-select>
-              <v-img contain max-width="266" max-height="190" :src="tablePhoto"></v-img>
+              <v-img contain max-width="266" max-height="190" :src="restaurant_data.table_layout"></v-img>
             </div>
           </div>
         </div>

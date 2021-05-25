@@ -108,6 +108,14 @@ export default {
         {
           value: 'KR',
           label: 'Корейская'
+        },
+        {
+          value: 'PA',
+          label: 'Паназиатская'
+        },
+        {
+          value: 'EU',
+          label: 'Европейская'
         }
       ],
       restaurantPriceItems: 

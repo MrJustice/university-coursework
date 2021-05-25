@@ -21,15 +21,23 @@ class TableSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FoodEstablismentGallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodEstablismentGallery
+        fields = '__all__'
+
+
 class FoodEstablishmentSerializer(serializers.ModelSerializer):
     owner = BasicUserSerializer()
     cousine = serializers.CharField(source='get_cousine_display', read_only=True)
     tables = TableSerializer(many=True)
+    photos = FoodEstablismentGallerySerializer(many=True)
 
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'owner', 'title', 'description', 'rating', 'phone', 'cousine', 'average_check', 'location',
-                  'email', 'working_hours', 'tables', 'full_title', 'reservation_time', 'preview_image']
+                  'email', 'working_hours', 'tables', 'full_title', 'reservation_time', 'preview_image', 'table_layout',
+                  'photos']
 
     def get_working_hours(self, obj):
         return self.get_working_hours
@@ -45,7 +53,7 @@ class FoodEstablishmentHomeScreenSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodEstablishment
         fields = ['id', 'cousine', 'average_check', 'location', 'rating', 'phone', 'working_hours', 'full_title',
-                  'tables', 'reservation_time', 'preview_image']
+                  'tables', 'reservation_time', 'preview_image', 'table_layout']
 
     def get_working_hours(self, obj):
         return self.get_working_hours

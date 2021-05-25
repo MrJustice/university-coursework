@@ -63,7 +63,7 @@ class FoodEstablishment(models.Model):
     closing_time = models.CharField(max_length=5, blank=True)
     reservation_time = models.PositiveSmallIntegerField('Время бронирования', **BLANK_NULL)
     email = models.EmailField('Адрес электронной почты', max_length=128, **BLANK_NULL)
-    big_image = models.ImageField('Логотип', **BLANK_NULL)
+    table_layout = models.ImageField('Схема расположения столиков', **BLANK_NULL)
     preview_image = models.ImageField('Превью', **BLANK_NULL)
     guests = models.ManyToManyField(Guest, through='GuestFoodEstablishmentM2M', related_name='food_establishments')
 
@@ -82,14 +82,23 @@ class FoodEstablishment(models.Model):
     def full_title(self):
         return self.get_type_display() + ' "' + self.title + '"'
 
-class Feedback(models.Model):
+
+# class Feedback(models.Model):
+#     """
+#     Feedback
+#     """
+#     guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True)
+#     food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
+#     comment = models.CharField(max_length=500, **BLANK_NULL)
+#     rating = models.PositiveSmallIntegerField('Рейтинг', **BLANK_NULL)
+
+
+class FoodEstablismentGallery(models.Model):
     """
-    Feedback
+    Photo gallery of each food establishment
     """
-    guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True)
-    food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
-    comment = models.CharField(max_length=500, **BLANK_NULL)
-    rating = models.PositiveSmallIntegerField('Рейтинг', **BLANK_NULL)
+    food_establishment = models.ForeignKey(FoodEstablishment, related_name='photos', on_delete=models.CASCADE)
+    picture = models.ImageField('Фото', **BLANK_NULL)
 
 
 class GuestFoodEstablishmentM2M(models.Model):
@@ -118,7 +127,6 @@ class Table(models.Model):
     food_establishment = models.ForeignKey(FoodEstablishment, related_name='tables', on_delete=models.CASCADE, null=True)
     number = models.PositiveSmallIntegerField('Номер стола')
     smoke = models.BooleanField('Стол для курящих', default=False)
-    image = models.ImageField('Фото', **BLANK_NULL)
 
     def __str__(self):
         return f'Столик номер {self.number}'
