@@ -14,10 +14,9 @@
             <v-text-field
               v-model="guestPhone"
               label="Номер телефона"
-              placeholder="+375291234567"
+              placeholder="+375(29)123-45-67"
               hide-details="auto"
-              v-phone
-              mask="[(][0-9]{2}[)] [0-9]{3}-[0-9]{2}-[0-9]{2}"
+              v-mask="'+###(##)###-##-##'"
               dark
             ></v-text-field>
             <div class="is-flex is-justify-content-space-between is-flex-direction-column has-text-white pl-0 pt-5">
@@ -119,18 +118,6 @@ import { toast } from 'bulma-toast'
 
 export default {
   name: 'RestaurantReserve',
-  directives: {
-    phone: {
-      bind: function(el, binding, vnode) {
-        if (!el.isTrusted) {
-          return;
-        }
-        const x = binding.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
-        binding.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
-        el.dispatchEvent(new Event('input'));
-      }
-    },
-  },
   props: {
     restaurant_data: {
       type: Object,
@@ -209,7 +196,8 @@ export default {
   },
   methods: {
     reserve() {
-      let guestData = {'name': this.guestName, 'phone': this.guestPhone,
+      let phone = this.guestPhone.replace("(","").replace(")","").replaceAll("-","")
+      let guestData = {'name': this.guestName, 'phone': phone,
                        'numberOfPersons': this.guestPersons, 'date': this.guestDate,
                        'time': this.guestTime, 'table': this.guestTable.id,
                        'comment': this.guestComment, 'restaurant': this.restaurant_data.id}

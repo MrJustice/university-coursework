@@ -2,7 +2,7 @@
   <v-container>
     <v-container class="search_layout my-1">
       <search-bar></search-bar>
-      <button id="search" class="find button is-primary is-outlined has-text-weight-semibold">Поиск</button>
+      <button id="search" class="button is-primary is-outlined has-text-weight-semibold">Поиск</button>
     </v-container>
     <v-divider class="mt-0"></v-divider>
     <div class="columns">
@@ -197,6 +197,7 @@ export default {
 #search {
   margin-left: 3%;
   margin-bottom: 23.5px;
+  border-width: 2px;
 }
 
 .v-list {

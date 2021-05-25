@@ -27,6 +27,7 @@ class FoodEstablishment(models.Model):
     CHINA = 'CN'
     KOREA = 'KR'
     PANASIAN = 'PA'
+    EUROPEAN = 'EU'
 
     COUSINE_CHOICES = (
         (BELARUS, 'Национальная'),
@@ -36,6 +37,7 @@ class FoodEstablishment(models.Model):
         (CHINA, 'Китайская'),
         (KOREA, 'Корейская'),
         (PANASIAN, 'Паназиатская'),
+        (EUROPEAN, 'Европейская')
     )
 
     BAR = 'B'

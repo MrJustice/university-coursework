@@ -1,10 +1,17 @@
 <template>
   <v-container>
-    <v-img height="308" contain :src="require('../assets/home_image.png')"/>
-    <v-container class="search_layout">
+    <agile :nav-buttons="false" :autoplay-speed="5000" :speed="2500" fade pause-on-hover autoplay>
+      <v-img class="slide" height="308" contain :src="require('../assets/home_image.png')"/>
+      <v-img class="slide" height="308" contain :src="require('../assets/home_image2.png')"/>
+      <v-img class="slide" height="308" contain :src="require('../assets/home_image3.png')"/>
+      <v-img class="slide" height="308" contain :src="require('../assets/home_image4.png')"/>
+      <v-img class="slide" height="308" contain :src="require('../assets/home_image5.png')"/>
+      <v-img class="slide" height="308" contain :src="require('../assets/home_image6.png')"/>
+    </agile>
+    <v-container class="search_layout mt-4">
       <search-bar></search-bar>
       <router-link :to="{name: 'RestaurantList'}">
-        <button class="find button is-primary is-outlined has-text-weight-semibold">Поиск</button>
+        <button id="search" class="button is-primary is-outlined has-text-weight-semibold">Поиск</button>
       </router-link>
     </v-container>
     <v-container>
@@ -24,10 +31,11 @@
 <script>
 import SearchBar from './SearchBar.vue';
 import HomeRestaurantListItem from './HomeRestaurantListItem.vue'
+import { VueAgile } from 'vue-agile'
 
 export default {
   name: 'HomeGuest',
-  components: { SearchBar, HomeRestaurantListItem },
+  components: { SearchBar, HomeRestaurantListItem, agile: VueAgile },
   data() {
     return {
       restaurants: {},
@@ -51,12 +59,16 @@ export default {
 <style scoped>
 .search_layout {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  margin: 2% auto;
+  align-content: center;
+  padding-bottom: 0;
 }
 
-.find {
-  margin: 0.5% auto 0;
+#search {
+  margin-left: 50%;
+  margin-bottom: 23.5px;
+  border-width: 2px;
 }
 </style>

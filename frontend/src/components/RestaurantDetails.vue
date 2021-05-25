@@ -40,7 +40,7 @@ import RestaurantReserve from './RestaurantReserve.vue';
 export default {
   name: "RestaurantDetails",
   components: {
-    RestaurantReserve
+    RestaurantReserve,
   },
   data() {
     return {

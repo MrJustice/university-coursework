@@ -2,7 +2,7 @@
   <div class="column">
     <v-card>
       <v-img 
-        max-height="105"
+        max-height="170"
         max-width="408"
         :src="restaurant_data.preview_image"
       ></v-img>

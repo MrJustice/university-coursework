@@ -1,20 +1,22 @@
 <template>
   <v-container>
     <p class="has-text-centered font-weight-medium is-size-4-desktop mt-6">
-      Для просмотра истории введите номер телефона:
+      Для просмотра истории введите Ваш номер телефона:
     </p>
     <v-text-field
       id="main-p"
       style="width: 50%; margin: 0 auto"
       v-model="guestPhone"
       label="Номер телефона"
+      placeholder="+375(29)123-45-67"
+      v-mask="'+###(##)###-##-##'"
       hide-details="auto"
       @keyup.enter="showCodeVerificationPopup()"
     ></v-text-field>
     <table v-if="history" id="main-table" class="table is-striped is-hoverable mt-8 hidden" style="width: 90%; margin: 0 auto">
       <thead>
         <tr>
-          <th><abbr title="Номер">№</abbr></th>
+          <th>№</th>
           <th>Заведение</th>
           <th>Время</th>
           <th>Номер столика</th>
@@ -67,9 +69,8 @@ export default {
           .catch(error => {})
     },
     getHistory(phone, code) {
-      console.log(phone)
-      console.log(code)
-      let params = {"phone": phone, "verificationCode": code}
+      let clearPhone = phone.replace("(","").replace(")","").replaceAll("-","")
+      let params = {"phone": clearPhone, "verificationCode": code}
       this.axios
           .get("/api/guest-history/", {params: params})
           .then(responce => {
