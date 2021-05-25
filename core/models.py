@@ -99,6 +99,7 @@ class FoodEstablismentGallery(models.Model):
     """
     food_establishment = models.ForeignKey(FoodEstablishment, related_name='photos', on_delete=models.CASCADE)
     picture = models.ImageField('Фото', **BLANK_NULL)
+    description = models.CharField(max_length=128, blank=True)
 
 
 class GuestFoodEstablishmentM2M(models.Model):

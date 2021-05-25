@@ -8,8 +8,9 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import vuetify from './plugins/vuetify';
 import VueAgile from 'vue-agile'
-
 import VueMask from 'v-mask';
+import VueSilentbox from 'vue-silentbox'
+// import VueWMasonryGallery from 'vue-masonry-gallery';
 // import VueExpandableImage from 'vue-expandable-image'
 
 import axios from 'axios'
@@ -23,7 +24,9 @@ Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 Vue.use(VueAgile)
-Vue.use(VueMask);
+Vue.use(VueMask)
+Vue.use(VueSilentbox)
+// Vue.use(VueWMasonryGallery)
 // Vue.use(VueExpandableImage)
 
 new Vue({

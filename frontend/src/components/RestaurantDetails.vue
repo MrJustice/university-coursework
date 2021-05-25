@@ -3,7 +3,20 @@
     <div class="data__title is-flex is-size-3 pl-9 mb-1">
       {{ restaurantData.full_title }}
     </div>
-    <v-img height="308" contain :src="require('../assets/home_image.png')"/>
+    <!-- <v-img height="308" contain :src="require('../assets/home_image.png')"/> -->
+    <!-- <silent-box :gallery="gallery"></silent-box> -->
+    <div id="masorny-wall-layout">
+      <vue-masonry-wall v-if="this.restaurantData.photos" :items="gallery" :options="options" @append="appendMasornyWall">
+        <template v-slot:default="{item}">
+          <div class="Item">
+            <img :src="item.image"/>
+            <div class="Content">
+              <p>{{item.content}}</p>
+            </div>
+          </div>
+        </template>
+      </vue-masonry-wall>
+    </div>
     <v-container class="mt-3">
       <p class="is-size-4 pl-6 mb-1">Описание</p>
       <v-divider class="mt-0"></v-divider>
@@ -36,11 +49,13 @@
 
 <script>
 import RestaurantReserve from './RestaurantReserve.vue';
+import VueMasonryWall from 'vue-masonry-wall';
 
 export default {
   name: "RestaurantDetails",
   components: {
     RestaurantReserve,
+    VueMasonryWall,
   },
   data() {
     return {
@@ -48,6 +63,14 @@ export default {
       restaurantId: this.$route.params.id,
       restaurantData: {},
       restaurantRating: 0.0,
+      gallery: [],
+      options: {
+        width: 300,
+        padding: {
+          2: 8,
+          default: 1
+        },
+      },
     }
   },
   methods: {
@@ -59,13 +82,23 @@ export default {
           this.restaurantRating = parseFloat(response.data.rating)
           document.title = this.restaurantData.title + " | TR"
         })
-        .catch(error => console.log("Connection lost"))
+        .catch(error => console.log(error))
     },
     showReservePopup() {
       this.isPopupVisible = true;
     },
     closeReservePopup() {
       this.isPopupVisible = false;
+    },
+    appendMasornyWall() {
+      if (this.gallery.length != this.restaurantData.photos.length) {
+        for (let i = 0; i < this.restaurantData.photos.length; i++) {
+          this.gallery.push({
+            image: this.restaurantData.photos[i].picture,
+            content: this.restaurantData.photos[i].description,
+          })
+        }
+      }
     }
   },
   mounted() {
@@ -86,5 +119,14 @@ div.stats p {
 }
 button {
   border-color: linear-gradient(98.96deg, #0ADA12 0%, #0ADA9B 100%);
+}
+
+#masorny-wall-layout {
+  max-height: 308px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+#masorny-wall-layout::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 </style>
