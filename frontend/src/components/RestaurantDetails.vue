@@ -171,11 +171,7 @@ button {
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: none;
-<<<<<<< HEAD
   padding-top: 15px;
-=======
-  padding: 1px;
->>>>>>> 447172741f13c472bae9d6f78faa5e719182d892
 }
 
 #masorny-wall-layout::-webkit-scrollbar { 
