@@ -102,6 +102,10 @@ nav.navbar {
   top: 0;
 }
 
+.navbar-menu a:hover {
+  font-weight: bold;
+}
+
 .slide-fade-enter-active {
   transition: all .5s ease;
 }

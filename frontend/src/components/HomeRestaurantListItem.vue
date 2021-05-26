@@ -34,9 +34,6 @@
         </div>
       </v-card-text>
       <v-card-actions class="is-flex is-justify-content-end">
-        <router-link :to="{ name: 'RestaurantPage', params: { id: restaurant_data.id } }">
-          <v-btn color="yellow darken-4" text>Подробнее</v-btn>
-        </router-link>
         <v-btn 
             @click="showReservePopup"
             color="yellow darken-4" 
@@ -44,6 +41,9 @@
           >
             Забронировать
         </v-btn>
+        <router-link :to="{ name: 'RestaurantPage', params: { id: restaurant_data.id } }">
+          <v-btn color="yellow darken-4" text>Подробнее</v-btn>
+        </router-link>
       </v-card-actions>
     </v-card>
     <restaurant-reserve 
