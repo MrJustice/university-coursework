@@ -83,8 +83,8 @@ export default {
       options: {
         width: 270,
         padding: {
-          2: 1,
-          default: 7
+          default: 7,
+          1: 5,
         },
       },
     }
@@ -168,11 +168,10 @@ button {
 
 #masorny-wall-layout {
   height: 600px;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: none;
-  padding: 1px;
-  /* border: 1px solid black; */
+  padding-top: 15px;
 }
 
 #masorny-wall-layout::-webkit-scrollbar { 
