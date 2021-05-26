@@ -214,7 +214,18 @@ export default {
             })
             this.closePopup();
           })
-          .catch(error => {})
+          .catch(error => {
+            if (error.response) {
+              toast({
+                message: 'Что-то пошло не так',
+                type: 'is-danger',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 3000,
+                position: 'bottom-right'
+              })
+            }
+          })
     },
     getReservations() {
       let params = {"restaurantId": this.restaurant_data.id, "date": this.guestDate}
