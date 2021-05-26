@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"status":"done","publicPath":"http://0.0.0.0:8080/","chunks":{"app":[{"name":"js/app.js","publicPath":"http://0.0.0.0:8080/js/app.js","path":"/home/artem/other/booking-service/frontend/dist/js/app.js"}]}}
+=======
+{"status":"done","publicPath":"http://0.0.0.0:8080/","chunks":{"app":[{"name":"js/app.js","publicPath":"http://0.0.0.0:8080/js/app.js","path":"/home/artem/other/booking-service/frontend/dist/js/app.js"},{"name":"app.56fe3870dff626ba6c03.hot-update.js","publicPath":"http://0.0.0.0:8080/app.56fe3870dff626ba6c03.hot-update.js","path":"/home/artem/other/booking-service/frontend/dist/app.56fe3870dff626ba6c03.hot-update.js"}]},"error":"ModuleBuildError","message":"Module build failed (from ./node_modules/postcss-loader/src/index.js):\nSyntaxError\n\n(149:11) Missed semicolon\n\n  147 | \n  148 | .details p:hover {\n> 149 |   cursor: pointer\n      |           ^\n  150 |   font-weight: bold;\n  151 | }\n"}
+>>>>>>> 447172741f13c472bae9d6f78faa5e719182d892
