@@ -22,16 +22,32 @@
           <th>Номер столика</th>
           <th>Кол-во гостей</th>
           <th>Комментарий</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(reservation, index) in history" :key="reservation.id">
+        <tr v-for="(reservation, index) in history" :key="reservation.id" 
+          v-bind:class="{
+            'active': reservation.status === 'ACT',
+            'canceled': reservation.status === 'CAN',
+            'completed': reservation.status === 'COM',
+        }">
           <td>{{ index+1 }}</td>
           <td>{{ reservation.guest_food_establishment.food_establishment.full_title }}</td>
           <td>{{ formatDate(reservation.start_date) }}</td>
           <td class="has-text-centered pr-8">{{ reservation.table.number }}</td>
           <td class="has-text-centered pr-8">{{ reservation.number_of_persons}}</td>
           <td>{{ reservation.comment}}</td>
+          <td v-if="reservation.status=='ACT'">
+            <v-icon style="margin: auto" color="red" class="ml-5" @click="cancelReservation(reservation.id)">
+              mdi-cancel
+            </v-icon>
+          </td>
+          <td v-else>
+            <v-icon disabled style="margin: auto" color="red" class="ml-5">
+              mdi-cancel
+            </v-icon>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -89,6 +105,12 @@ export default {
             }
           })
     },
+    cancelReservation(reservationId) {
+      this.axios
+          .post("/api/cancel-reservation/", {'reservationId': reservationId})
+          .then(response => this.getHistory())
+          .catch(error => {})
+    },
     formatDate(datetime) {
       let date = new Date(datetime)
       return date.toLocaleString("ru-RU", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'})
@@ -108,4 +130,32 @@ export default {
 </script>
 
 <style scoped>
+tr {
+    background-color: transparent !important;
+  }
+
+tr.active {
+  background: white !important;
+}
+
+tr.active:hover {
+  background: #00000010 !important;
+}
+
+tr.completed {
+  background: #00ff0090 !important;
+}
+
+tr.completed:hover {
+  background: #00ff0050 !important;
+}
+
+tr.canceled {
+  background: #ff000090 !important;
+}
+
+tr.canceled:hover {
+  background: #ff000050 !important;
+}
+</style>
 </style>

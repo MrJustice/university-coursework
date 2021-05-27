@@ -174,7 +174,9 @@ def guest_history(request):
     verification_code = request.GET["verificationCode"]
     result = service.verification_checks.create(to=guest_phone, code=verification_code)
     if result.status == "approved":
-        reservations = models.Reservation.objects.filter(guest_food_establishment__guest__phone=guest_phone)
+        reservations = models.Reservation.objects.filter(
+            guest_food_establishment__guest__phone=guest_phone
+        ).order_by('-start_date')
         serializer = serializers.ReservationSerializer(reservations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(status=status.HTTP_403_FORBIDDEN)
