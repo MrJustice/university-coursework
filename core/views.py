@@ -64,9 +64,6 @@ class FoodEstablishmentViewSet(viewsets.ViewSet):
         data = {"message": "Success."}
         return Response(data, content_type="application/json")
 
-    def destroy(self, request, pk=None, *args, **kwargs):
-        pass
-
     @staticmethod
     @api_view(["GET"])
     def get_high_rated(request):

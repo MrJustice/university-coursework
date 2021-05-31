@@ -50,7 +50,7 @@ class FoodEstablishment(models.Model):
         (RESTAURANT, 'Ресторан')
     )
 
-    owner = models.ForeignKey(User, related_name='food_establishments', on_delete=models.PROTECT)
+    owner = models.OneToOneField(User, related_name='food_establishments', on_delete=models.PROTECT)
     title = models.CharField('Название', max_length=128, unique=True)
     description = models.CharField('Описание', max_length=5000, **BLANK_NULL)
     type = models.CharField('Тип заведения', max_length=1, choices=TYPE_CHOICES, default=TYPE_CHOICES[1][0])
@@ -81,16 +81,6 @@ class FoodEstablishment(models.Model):
     @property
     def full_title(self):
         return self.get_type_display() + ' "' + self.title + '"'
-
-
-# class Feedback(models.Model):
-#     """
-#     Feedback
-#     """
-#     guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True)
-#     food_establishment = models.ForeignKey(FoodEstablishment, on_delete=models.CASCADE, null=True)
-#     comment = models.CharField(max_length=500, **BLANK_NULL)
-#     rating = models.PositiveSmallIntegerField('Рейтинг', **BLANK_NULL)
 
 
 class FoodEstablismentGallery(models.Model):
