@@ -9,19 +9,19 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/usr/src/app
-    environment:
-      - PYTHONPATH=/opt/backend
-      - DJANGO_SETTINGS_MODULE=api.settings
-      - FRONTEND_PORT=8080
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=secret
+      # - type: volume
+      #   source: media
+      #   target: /usr/src/app/media
+      # - type: volume
+      #   source: common_static
+      #   target: /usr/src/app/common_static
+      - ./media:/usr/src/app/media
+      - ./common_static:/usr/src/app/common_static
   frontend:
     user: "1000:1000"
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     depends_on:
       -  backend
     ports:
@@ -31,6 +31,5 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=8080
-      - CHOKIDAR_USEPOLLING=true
       - API_HOST=localhost
       - API_PORT=8000

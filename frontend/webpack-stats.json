@@ -1,1 +1,1 @@
-{"status":"done","publicPath":"http://0.0.0.0:8080/","chunks":{"app":[{"name":"js/app.js","publicPath":"http://0.0.0.0:8080/js/app.js","path":"/home/artem/other/booking-service/frontend/dist/js/app.js"}]}}
+{"status":"done","publicPath":"http://0.0.0.0:8080/","chunks":{"app":[{"name":"js/app.js","publicPath":"http://0.0.0.0:8080/js/app.js","path":"/usr/src/app/frontend/dist/js/app.js"}]}}
