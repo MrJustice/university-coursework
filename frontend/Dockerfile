@@ -9,6 +9,6 @@ RUN npm run
 
 EXPOSE 8080
 
-ENTRYPOINT ["npm", "run"]
+ENTRYPOINT ["npm", "run", "--silent"]
 
 CMD ["serve"]

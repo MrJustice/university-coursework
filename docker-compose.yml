@@ -6,17 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+    command: >
+      bash -c "python3.8 manage.py collectstatic --no-input &&
+               gunicorn diplom.wsgi:application -b 0.0.0.0:8000 --reload"
     volumes:
-      # - type: volume
-      #   source: media
-      #   target: /usr/src/app/media
-      # - type: volume
-      #   source: common_static
-      #   target: /usr/src/app/common_static
-      - ./media:/usr/src/app/media
-      - ./common_static:/usr/src/app/common_static
+      - ./:/usr/src/app
+
   frontend:
     user: "1000:1000"
     build:
@@ -33,3 +28,17 @@ services:
       - PORT=8080
       - API_HOST=localhost
       - API_PORT=8000
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on: 
+      - backend
+      - frontend
+    ports: 
+      - "8000:80"
+    volumes:
+      - ./static/:/static
+      - ./media/:/media
+      - ./common_static/:/common_static
