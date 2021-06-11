@@ -3,7 +3,7 @@
     <v-card class="glass column is-4-desktop is-7-mobile has-text-white">
       <v-card-title class="is-size-3 is-flex is-justify-content-center">{{ restaurant_data.full_title }}</v-card-title>
       <v-card-text class="pb-0">
-        <div class="columns">
+        <div class="columns is-mobile flex-layer">
           <div class="column">
             <v-text-field
               v-model="guestName"
@@ -87,8 +87,7 @@
           column
           v-model="guestTime"
         >
-          <v-chip class="is-flex is-justify-content-center" 
-                  style="width: 11%; margin-right: 1.5%" 
+          <v-chip class="is-flex is-justify-content-center max-width-chip" 
                   v-for="time in possibleTimeChoices" :key="time" :value="time"
           >{{time}}</v-chip>
         </v-chip-group>
@@ -280,10 +279,9 @@ export default {
 
 .glass {
   position: fixed;
-  /* top: 40%;
-  left: 5.5%; */
   top: 20%;
   left: 33.5%;
+  width: 35%;
   background: linear-gradient(
     to right bottom,
     rgba(0,0,0, 0.9),
@@ -293,11 +291,53 @@ export default {
   backdrop-filter: blur(2rem);
 }
 
+.max-width-chip.v-chip {
+  width: 15%;
+  margin-right: 1.5%;
+}
+
+.max-width-chip.v-chip:nth-child(6n) {
+  margin-right: 0;
+}
+
 .el-input-number {
   color: black;
 }
 
-@media screen {
-  
+@media (max-width:73em) {
+  .max-width-chip.v-chip {
+    width: 18%;
+    margin-right: 1.5%;
+  }
+  .max-width-chip.v-chip:nth-child(6n) {
+    margin-right: 1.5%;
+  }
+}
+@media (max-width:50em) {
+  .max-width-chip.v-chip {
+    width: 18%;
+    margin-right: 1.5%;
+  }
+  .max-width-chip.v-chip:nth-child(5n) {
+    margin-right: 0;
+  }
+}
+@media (max-width:46.8em) {
+  .glass {
+    top: 10%;
+    left: 15%;
+  }
+  .max-width-chip.v-chip {
+    width: 30%;
+    margin-right: 4%;
+  }
+  .max-width-chip.v-chip:nth-child(5n) {
+    margin-right: 4%;
+  }
+  .max-width-chip.v-chip:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+@media (max-width:24em) {
 }
 </style>

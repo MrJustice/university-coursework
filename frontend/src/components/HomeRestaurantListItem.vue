@@ -9,7 +9,7 @@
       <v-card-title class="s-flex is-justify-content-space-between is-size-5 pb-2">
         {{ restaurant_data.full_title }}
       </v-card-title>
-      <v-card-text class="columns is-multiline card-text is-size-6 pr-0 pb-0">
+      <v-card-text class="columns is-mobile is-multiline card-text is-size-6 pr-0 pb-0">
         <div class="column has-text-left is-7 pb-0">
           {{ restaurant_data.cousine }} кухня
           <br /> Средний чек:&nbsp;{{restaurant_data.average_check}}руб.
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="column has-text-right is-5 pr-2 pb-0">
-          {{ restaurant_data.phone }}
+          <a href="tel:'`${restaurant_data.phone}`">{{restaurant_data.phone}}</a>
           <br />{{ restaurant_data.location }}
         </div>
       </v-card-text>
@@ -78,6 +78,9 @@ export default {
   computed: {
     restaurantRating: function() {
       return parseFloat(this.restaurant_data.rating)
+    },
+    restaurantPhone: function() {
+      return "tel:" + this.restaurant_data.phone
     }
   },
   methods: {
@@ -92,4 +95,10 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width:50em) {
+}
+@media (max-width:46.8em) {
+}
+@media (max-width:24em) {
+}
 </style>

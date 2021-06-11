@@ -82,6 +82,7 @@ export default {
 
 #app {
   font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

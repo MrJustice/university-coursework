@@ -158,4 +158,40 @@ div.est-person {
 div.est-name {
   width: 34%;
 }
+
+@media (max-width:73em) {
+  div.est-layer {
+    flex-wrap: wrap;
+    width: 90%;
+    height: 20%;
+  }
+  div.est-date,
+  div.est-time,
+  div.est-person {
+    width: 33.333%;
+    border-right: 2px solid #000000;
+  }
+  div.est-person {
+    border-right: 0;
+  }
+  div.est-name {
+    width: 100%;
+    border-top: 2px solid #000000;
+  }
+  .v-text-field__details {
+    height: 0%;
+  }
+}
+@media (max-width:46.8em) {
+  div.est-date,
+  div.est-time,
+  div.est-person,
+  div.est-name {
+    width: 100%;
+    border-right: 0;
+  }
+  div.est-person {
+    border-right: 0;
+  }
+}
 </style>
